@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bradley Phyo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: linear-gradient(180deg, #0a2647 0%, #1a5276 50%, #2e86ab 100%);
+            min-height: 100vh;
+            color: #fff;
+            image-rendering: pixelated;
+            overflow-x: hidden;
+        }
+
+        /* Starfield */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            image-rendering: pixelated;
+        }
+
+        .star.small {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 2px white;
+        }
+
+        .star.medium {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 4px white;
+        }
+
+        .star.twinkle {
+            animation: pixelTwinkle 1s steps(2) infinite;
+        }
+
+        @keyframes pixelTwinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Floating pixel clouds */
+        .pixel-cloud {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cloud1 {
+            width: 80px;
+            height: 30px;
+            top: 15%;
+            right: 10%;
+            box-shadow:
+                20px 10px 0 rgba(255,255,255,0.1),
+                -20px 5px 0 rgba(255,255,255,0.1);
+            animation: floatCloud 20s linear infinite;
+        }
+
+        .cloud2 {
+            width: 60px;
+            height: 25px;
+            top: 40%;
+            left: 5%;
+            box-shadow:
+                15px 8px 0 rgba(255,255,255,0.1),
+                -15px 3px 0 rgba(255,255,255,0.1);
+            animation: floatCloud 25s linear infinite reverse;
+        }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            color: #5dade2;
+            text-decoration: none;
+            border: 3px solid #5dade2;
+            background: rgba(93, 173, 226, 0.1);
+            transition: all 0.2s steps(3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(93, 173, 226, 0.3);
+            box-shadow: 0 0 15px rgba(93, 173, 226, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Page title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            color: #5dade2;
+            text-shadow:
+                4px 4px 0 #1a5276,
+                -2px -2px 0 #2e86ab;
+            margin-bottom: 10px;
+            animation: titleGlow 2s steps(4) infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 4px 4px 0 #1a5276, -2px -2px 0 #2e86ab; }
+            50% { text-shadow: 4px 4px 0 #27ae60, -2px -2px 0 #5dade2; }
+        }
+
+        .page-title .subtitle {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: #27ae60;
+            animation: blink 1s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Content sections */
+        .content-box {
+            background: rgba(10, 38, 71, 0.85);
+            border: 4px solid #5dade2;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid #27ae60;
+            pointer-events: none;
+        }
+
+        .content-box h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: #27ae60;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #5dade2;
+        }
+
+        .content-box p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #b0c4de;
+            margin-bottom: 15px;
+        }
+
+        .content-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Earth decoration */
+        .earth-icon {
+            position: fixed;
+            bottom: 10%;
+            right: 5%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #5dade2 0%, #2e86ab 30%, #1a5276 60%, #0a2647 100%);
+            border-radius: 50%;
+            box-shadow:
+                inset -12px -12px 0 rgba(0,0,0,0.35),
+                inset 10px 10px 0 rgba(255,255,255,0.15),
+                0 0 0 4px #154360,
+                0 0 30px rgba(93, 173, 226, 0.4);
+            z-index: 5;
+            animation: earthBob 3s steps(6) infinite;
+        }
+
+        .earth-icon::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 18px;
+            background: #27ae60;
+            top: 30px;
+            left: 25px;
+            border-radius: 30%;
+            box-shadow:
+                30px 15px 0 12px #27ae60,
+                15px 35px 0 8px #2ecc71,
+                -8px 22px 0 5px #27ae60;
+        }
+
+        .earth-icon::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            top: 15px;
+            left: 35px;
+            border-radius: 50%;
+            box-shadow:
+                -25px 25px 0 8px rgba(255,255,255,0.4),
+                18px 40px 0 10px rgba(255,255,255,0.35);
+        }
+
+        @keyframes earthBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-box {
+            background: rgba(93, 173, 226, 0.1);
+            border: 2px solid #27ae60;
+            padding: 15px;
+        }
+
+        .skill-box h3 {
+            font-size: 1.2rem;
+            color: #5dade2;
+            margin-bottom: 10px;
+        }
+
+        .skill-box ul {
+            list-style: none;
+        }
+
+        .skill-box li {
+            font-size: 1rem;
+            color: #b0c4de;
+            padding: 5px 0;
+            border-bottom: 1px dotted rgba(93, 173, 226, 0.3);
+        }
+
+        .skill-box li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-box li::before {
+            content: '>';
+            color: #27ae60;
+            margin-right: 8px;
+        }
+
+        /* Pixel decorations */
+        .pixel-decoration {
+            position: fixed;
+            background: #27ae60;
+            width: 8px;
+            height: 8px;
+            z-index: 2;
+            animation: pixelFloat 4s steps(8) infinite;
+        }
+
+        .pixel1 { top: 20%; left: 15%; animation-delay: 0s; }
+        .pixel2 { top: 60%; left: 8%; animation-delay: 1s; }
+        .pixel3 { top: 30%; right: 20%; animation-delay: 0.5s; background: #5dade2; }
+        .pixel4 { top: 70%; right: 12%; animation-delay: 1.5s; background: #5dade2; }
+
+        @keyframes pixelFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(10px) rotate(270deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 2px dashed #5dade2;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            color: #5dade2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title h1 { font-size: 1.2rem; }
+            .content-box { padding: 15px; }
+            .content-box h2 { font-size: 1.2rem; }
+            .content-box p { font-size: 0.95rem; }
+            .earth-icon { width: 60px; height: 60px; bottom: 5%; right: 3%; }
+            .back-btn { font-size: 0.5rem; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="stars" id="starfield"></div>
+
+    <!-- Pixel clouds -->
+    <div class="pixel-cloud cloud1"></div>
+    <div class="pixel-cloud cloud2"></div>
+
+    <!-- Pixel decorations -->
+    <div class="pixel-decoration pixel1"></div>
+    <div class="pixel-decoration pixel2"></div>
+    <div class="pixel-decoration pixel3"></div>
+    <div class="pixel-decoration pixel4"></div>
+
+    <!-- Earth decoration -->
+    <div class="earth-icon"></div>
+
+    <!-- Back button -->
+    <a href="/universe" class="back-btn">&#9664;</a>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>ABOUT ME</h1>
+            <p class="subtitle">// HOME BASE //</p>
+        </div>
+
+
+        <div class="content-box" style="position: relative;">
+            <a href="/resume.pdf" target="_blank" style="position: absolute; top: 15px; right: 15px; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; color: #27ae60; border: 2px solid #27ae60; padding: 8px 14px; text-decoration: none; background: rgba(39, 174, 96, 0.1); transition: all 0.2s steps(3);" onmouseover="this.style.background='rgba(39,174,96,0.3)';this.style.boxShadow='0 0 15px rgba(39,174,96,0.5)'" onmouseout="this.style.background='rgba(39,174,96,0.1)';this.style.boxShadow='none'">VIEW MY RESUME</a>
+            <h2>// ORIGIN STORY</h2>
+            <p>
+                I'm Bradley Phyo, a founder and full-stack engineer with an eye for design and building scalable, real-world products from idea to production. Currently CTO
+                at ServiceAgent, where I lead engineering and product from zero to one.
+            </p>
+            <p>
+                Before I launched into the unknown, I was grounded here - learning to code,
+                breaking things, fixing them, and building something from nothing.
+            </p>
+            <p>
+                I believe great products come from obsessing over user problems, moving fast,
+                and never settling for "good enough."
+            </p>
+        </div>
+
+        <div class="content-box">
+            <h2>// MISSION PROFILE</h2>
+            <div class="skills-grid">
+                <div class="skill-box">
+                    <h3>CURRENT STATUS</h3>
+                    <ul>
+                        <li>Role: CTO</li>
+                        <li>Sector: Startups</li>
+                        <li>Focus: Product & Growth</li>
+                        <li>Mode: Build</li>
+                    </ul>
+                </div>
+                <div class="skill-box">
+                    <h3>MISSION STATS</h3>
+                    <ul>
+                        <li>Products Shipped: Many</li>
+                        <li>Teams Led: Multiple</li>
+                        <li>Coffee Consumed: Infinite</li>
+                        <li>Bugs Squashed: Countless</li>
+                    </ul>
+                </div>
+                <div class="skill-box">
+                    <h3>OFF-DUTY</h3>
+                    <ul>
+                        <li>Building side projects</li>
+                        <li>Exploring new tech</li>
+                        <li>Reading & learning</li>
+                        <li>Plotting the next move</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <h2>// TRANSMISSION LOG</h2>
+            <p style="color: #27ae60;">
+                > System initialized...<br>
+                > Home base operational...<br>
+                > Ready for exploration...<br>
+                > Click the arrow to return to the universe and continue your journey.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>[ END TRANSMISSION ]</p>
+        </div>
+    </div>
+
+    <script>
+        // Create pixel stars
+        const starfield = document.getElementById('starfield');
+        const starCount = 150;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+
+            if (Math.random() < 0.7) {
+                star.classList.add('small');
+            } else {
+                star.classList.add('medium');
+            }
+
+            if (Math.random() > 0.6) {
+                star.classList.add('twinkle');
+                star.style.animationDelay = Math.random() * 2 + 's';
+            }
+
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+
+            // Some colored stars
+            const colorRand = Math.random();
+            if (colorRand > 0.95) {
+                star.style.background = '#5dade2';
+                star.style.boxShadow = '0 0 4px #5dade2';
+            } else if (colorRand > 0.9) {
+                star.style.background = '#27ae60';
+                star.style.boxShadow = '0 0 4px #27ae60';
+            }
+
+            starfield.appendChild(star);
+        }
+    </script>
+</body>
+</html>

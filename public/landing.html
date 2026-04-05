@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bradley Phyo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: #0a0a1a;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: default;
+            image-rendering: pixelated;
+        }
+
+        /* Starfield */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            image-rendering: pixelated;
+        }
+
+        .star.small {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 2px white;
+        }
+
+        .star.medium {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 4px white;
+        }
+
+        .star.large {
+            width: 4px;
+            height: 4px;
+            box-shadow: 0 0 6px white;
+        }
+
+        .star.twinkle {
+            animation: pixelTwinkle 1s steps(2) infinite;
+        }
+
+        @keyframes pixelTwinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Shooting stars - pixel style with diagonal trail */
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            box-shadow:
+                4px -4px 0 #fff,
+                8px -8px 0 #eee,
+                12px -12px 0 #ccc,
+                16px -16px 0 #999,
+                20px -20px 0 #666,
+                24px -24px 0 #444,
+                28px -28px 0 #222;
+            animation: pixelShoot 2s steps(20) infinite;
+            opacity: 0;
+            image-rendering: pixelated;
+        }
+
+        @keyframes pixelShoot {
+            0% { transform: translateX(0) translateY(0); opacity: 1; }
+            100% { transform: translateX(-400px) translateY(400px); opacity: 0; }
+        }
+
+        /* Meteors - orange fireballs only */
+        .meteor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #ff8c00;
+            border-radius: 50%;
+            box-shadow:
+                0 0 10px #ff4500,
+                0 0 20px #ff6b00,
+                6px -6px 0 #ff8c00,
+                12px -12px 0 #ffa500,
+                18px -18px 0 #cc7000,
+                24px -24px 0 #995500,
+                30px -30px 0 #663300;
+            animation: meteorFly 8s linear infinite;
+            opacity: 0;
+            image-rendering: pixelated;
+        }
+
+        @keyframes meteorFly {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateX(-600px) translateY(600px);
+                opacity: 0;
+            }
+        }
+
+        /* Small orange meteor */
+        .meteor-small {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: #f39c12;
+            border-radius: 50%;
+            box-shadow:
+                0 0 5px #f39c12,
+                4px -4px 0 #e67e22,
+                8px -8px 0 #d35400,
+                12px -12px 0 #a04000;
+            animation: meteorFlySmall 7s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes meteorFlySmall {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateX(-400px) translateY(400px);
+                opacity: 0;
+            }
+        }
+
+        /* Left-side meteors - orange only */
+        .meteor-left {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #ff8c00;
+            border-radius: 50%;
+            box-shadow:
+                0 0 10px #ff4500,
+                0 0 20px #ff6b00,
+                -6px -6px 0 #ff8c00,
+                -12px -12px 0 #ffa500,
+                -18px -18px 0 #cc7000,
+                -24px -24px 0 #995500,
+                -30px -30px 0 #663300;
+            animation: meteorFlyLeft 8s linear infinite;
+            opacity: 0;
+            image-rendering: pixelated;
+        }
+
+        @keyframes meteorFlyLeft {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateX(600px) translateY(600px);
+                opacity: 0;
+            }
+        }
+
+        /* Small left-side orange meteor */
+        .meteor-small-left {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: #f39c12;
+            border-radius: 50%;
+            box-shadow:
+                0 0 5px #f39c12,
+                -4px -4px 0 #e67e22,
+                -8px -8px 0 #d35400,
+                -12px -12px 0 #a04000;
+            animation: meteorFlySmallLeft 7s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes meteorFlySmallLeft {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateX(400px) translateY(400px);
+                opacity: 0;
+            }
+        }
+
+        /* UFO / Alien Spaceship */
+        .ufo {
+            position: fixed;
+            width: 60px;
+            height: 30px;
+            animation: ufoFly 15s linear infinite;
+            image-rendering: pixelated;
+            z-index: 5;
+        }
+
+        .ufo-body {
+            position: absolute;
+            width: 60px;
+            height: 20px;
+            background: linear-gradient(to bottom, #95a5a6, #7f8c8d, #5d6d7e);
+            border-radius: 50%;
+            top: 10px;
+            box-shadow:
+                inset 0 -4px 0 #4a5568,
+                0 4px 0 rgba(0,0,0,0.3);
+        }
+
+        .ufo-dome {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: linear-gradient(to bottom, #81ecec, #00cec9, #00b894);
+            border-radius: 50% 50% 0 0;
+            top: 0;
+            left: 15px;
+            box-shadow: inset 0 4px 0 rgba(255,255,255,0.3);
+        }
+
+        .ufo-lights {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            width: 8px;
+            height: 8px;
+            background: #ff0;
+            border-radius: 50%;
+            box-shadow:
+                15px 0 0 #0ff,
+                30px 0 0 #f0f;
+            animation: ufoLights 0.3s steps(2) infinite;
+        }
+
+        @keyframes ufoLights {
+            0% { box-shadow: 15px 0 0 #0ff, 30px 0 0 #f0f; }
+            50% { box-shadow: 15px 0 0 #f0f, 30px 0 0 #ff0; }
+            100% { box-shadow: 15px 0 0 #ff0, 30px 0 0 #0ff; }
+        }
+
+        @keyframes ufoFly {
+            0% {
+                transform: translateX(-100px) translateY(0);
+                top: 20%;
+            }
+            25% {
+                transform: translateX(25vw) translateY(-30px);
+                top: 15%;
+            }
+            50% {
+                transform: translateX(50vw) translateY(20px);
+                top: 25%;
+            }
+            75% {
+                transform: translateX(75vw) translateY(-20px);
+                top: 18%;
+            }
+            100% {
+                transform: translateX(110vw) translateY(0);
+                top: 22%;
+            }
+        }
+
+        /* Removed alien ships - keeping space cleaner */
+
+        /* Main Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Title - Pixel Style */
+        .title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-shadow:
+                4px 4px 0 #764ba2,
+                -2px -2px 0 #667eea;
+            animation: pixelGlow 2s steps(4) infinite;
+        }
+
+        @keyframes pixelGlow {
+            0%, 100% { text-shadow: 4px 4px 0 #764ba2, -2px -2px 0 #667eea; }
+            50% { text-shadow: 4px 4px 0 #f093fb, -2px -2px 0 #4facfe; }
+        }
+
+        .subtitle {
+            font-size: 0.7rem;
+            color: #b0c4de;
+            margin-bottom: 3rem;
+            text-align: center;
+            animation: blink 1s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Rocket Container */
+        .rocket-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s steps(3);
+            padding: 20px;
+        }
+
+        .rocket-wrapper:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.8));
+        }
+
+        .rocket-svg {
+            width: 120px;
+            height: 180px;
+            animation: pixelFloat 1s steps(4) infinite;
+            image-rendering: pixelated;
+        }
+
+        @keyframes pixelFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Fire/Exhaust - Pixel Style */
+        .exhaust {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 80px;
+            image-rendering: pixelated;
+        }
+
+        .pixel-flame {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pixelFire 0.2s steps(2) infinite;
+        }
+
+        .pixel-flame-outer {
+            width: 40px;
+            height: 50px;
+            background:
+                linear-gradient(to bottom,
+                    transparent 0%,
+                    #ff4500 20%,
+                    #ff6b00 40%,
+                    #ffa500 60%,
+                    #ffcc00 80%,
+                    #fff 100%
+                );
+            clip-path: polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 50% 80%, 20% 100%, 0% 50%);
+        }
+
+        @keyframes pixelFire {
+            0% { transform: translateX(-50%) scaleY(1); opacity: 1; }
+            50% { transform: translateX(-50%) scaleY(1.2); opacity: 0.9; }
+            100% { transform: translateX(-50%) scaleY(1); opacity: 1; }
+        }
+
+        /* Launch Button - Now clickable */
+        .launch-btn {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            font-family: 'Press Start 2P', cursive;
+            color: #0f0;
+            text-align: center;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 15px 30px;
+            border: 3px solid #0f0;
+            cursor: pointer;
+            transition: all 0.1s steps(2);
+            image-rendering: pixelated;
+            animation: btnPulse 1s steps(2) infinite;
+        }
+
+        .launch-btn:hover {
+            background: rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .launch-btn:active {
+            transform: scale(0.95);
+            background: #0f0;
+            color: #000;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); }
+        }
+
+        /* Launch Animation */
+        .launching .rocket-svg {
+            animation: pixelLaunch 3s ease-in forwards;
+        }
+
+        .launching .exhaust {
+            animation: pixelLaunchExhaust 3s ease-in forwards;
+        }
+
+        @keyframes pixelLaunch {
+            0% { transform: translateY(0) scale(1); }
+            5% { transform: translateY(5px) scale(1); } /* slight rumble down */
+            10% { transform: translateY(-3px) scale(1.02); } /* rumble up */
+            15% { transform: translateY(2px) scale(1.05); } /* rumble */
+            20% { transform: translateY(0) scale(1.1); } /* ready to launch */
+            30% { transform: translateY(-20px) scale(1.08); } /* slow lift */
+            50% { transform: translateY(-80px) scale(1); } /* accelerating */
+            100% { transform: translateY(-150vh) scale(1); } /* blast off - stays full size */
+        }
+
+        @keyframes pixelLaunchExhaust {
+            0% { transform: translateX(-50%) translateY(0) scale(1); }
+            5% { transform: translateX(-50%) translateY(5px) scale(1); }
+            10% { transform: translateX(-50%) translateY(-3px) scale(1); }
+            15% { transform: translateX(-50%) translateY(2px) scale(1); }
+            20% { transform: translateX(-50%) translateY(0) scale(1.2); }
+            30% { transform: translateX(-50%) translateY(-20px) scale(1.3); }
+            50% { transform: translateX(-50%) translateY(-80px) scale(1.2); }
+            100% { transform: translateX(-50%) translateY(-150vh) scale(1.2); }
+        }
+
+        .launching .pixel-flame-outer {
+            height: 70px !important;
+            animation: pixelFireIntense 0.1s steps(2) infinite !important;
+        }
+
+        @keyframes pixelFireIntense {
+            0% { transform: translateX(-50%) scaleY(1); }
+            100% { transform: translateX(-50%) scaleY(1.2); }
+        }
+
+        /* Screen shake effect */
+        @keyframes screenShake {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-3px, -2px); }
+            20% { transform: translate(3px, 2px); }
+            30% { transform: translate(-2px, 3px); }
+            40% { transform: translate(2px, -2px); }
+            50% { transform: translate(-3px, 2px); }
+            60% { transform: translate(3px, -3px); }
+            70% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 3px); }
+            90% { transform: translate(-3px, -2px); }
+        }
+
+        body.shaking {
+            animation: screenShake 0.5s ease-in-out;
+        }
+
+        /* Smoke particles */
+        .smoke-particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            z-index: 5;
+        }
+
+        @keyframes smokeRise {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(150px) translateX(var(--smoke-drift, 0px)) scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Spark particles */
+        .spark {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        @keyframes sparkFly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--spark-x), var(--spark-y)) scale(0);
+            }
+        }
+
+        /* Launch glow effect around rocket */
+        .launching .rocket-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.4) 0%, rgba(255, 69, 0, 0.2) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: launchGlow 0.3s ease-out forwards;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes launchGlow {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+
+        /* Fade Out */
+        body.fade-out {
+            animation: fadeOut 1s steps(10) forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; background: #000; }
+        }
+
+        /* Pixel Planets */
+        .planet {
+            position: fixed;
+            image-rendering: pixelated;
+            opacity: 0.9;
+        }
+
+        /* Earth-like planet - with clouds and ice caps */
+        .planet1 {
+            width: 85px;
+            height: 85px;
+            top: 5%;
+            right: 8%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #5dade2 0%,
+                    #2e86ab 30%,
+                    #1a5276 60%,
+                    #0a2647 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -10px -10px 0 rgba(0,0,0,0.35),
+                inset 10px 10px 0 rgba(255,255,255,0.15),
+                0 0 0 4px #154360,
+                0 0 20px rgba(93, 173, 226, 0.3),
+                10px 10px 0 rgba(0,0,0,0.5);
+            animation: planetBob 3s steps(6) infinite;
+        }
+
+        .planet1::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 16px;
+            background: #27ae60;
+            top: 28px;
+            left: 22px;
+            border-radius: 30%;
+            box-shadow:
+                28px 12px 0 10px #27ae60,
+                12px 28px 0 6px #2ecc71,
+                -6px 18px 0 4px #27ae60,
+                35px -5px 0 5px #229954;
+        }
+
+        .planet1::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 10px;
+            background: rgba(255,255,255,0.55);
+            top: 12px;
+            left: 30px;
+            border-radius: 50%;
+            box-shadow:
+                -20px 20px 0 6px rgba(255,255,255,0.45),
+                15px 35px 0 8px rgba(255,255,255,0.35),
+                -8px 50px 0 5px rgba(255,255,255,0.3);
+        }
+
+        /* Mars-like planet - with polar cap and canyons */
+        .planet2 {
+            width: 110px;
+            height: 110px;
+            bottom: 8%;
+            left: 8%;
+            background:
+                radial-gradient(circle at 35% 35%,
+                    #e74c3c 0%,
+                    #c0392b 30%,
+                    #922b21 60%,
+                    #641e16 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -14px -14px 0 rgba(0,0,0,0.45),
+                inset 12px 12px 0 rgba(255,200,150,0.2),
+                0 0 0 5px #7b241c,
+                0 0 15px rgba(231, 76, 60, 0.25),
+                12px 12px 0 rgba(0,0,0,0.5);
+            animation: planetBob 4s steps(6) infinite reverse;
+        }
+
+        .planet2::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #922b21;
+            border-radius: 50%;
+            top: 28px;
+            left: 35px;
+            box-shadow:
+                35px 22px 0 10px #7b241c,
+                -18px 42px 0 6px #922b21,
+                22px 55px 0 12px #641e16,
+                50px 5px 0 7px #7b241c,
+                inset 3px 3px 0 rgba(0,0,0,0.3);
+        }
+
+        .planet2::after {
+            content: '';
+            position: absolute;
+            width: 35px;
+            height: 15px;
+            background: rgba(255,255,255,0.5);
+            top: 3px;
+            left: 35px;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255,255,255,0.3);
+        }
+
+        /* Saturn with detailed rings */
+        .planet3 {
+            width: 75px;
+            height: 75px;
+            top: 78%;
+            right: 8%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #f5b041 0%,
+                    #d68910 25%,
+                    #b9770e 50%,
+                    #9a7d0a 75%,
+                    #7e5109 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -10px -10px 0 rgba(0,0,0,0.35),
+                inset 8px 8px 0 rgba(255,255,200,0.25),
+                0 0 0 3px #9c640c,
+                0 0 15px rgba(245, 176, 65, 0.2),
+                8px 8px 0 rgba(0,0,0,0.5);
+            animation: planetBob 3.5s steps(6) infinite;
+        }
+
+        .planet3::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 8px;
+            background: rgba(180, 140, 80, 0.4);
+            top: 25px;
+            left: 10px;
+            border-radius: 30%;
+            box-shadow:
+                30px 5px 0 5px rgba(200, 160, 100, 0.3),
+                15px 20px 0 8px rgba(160, 120, 60, 0.25);
+        }
+
+        .planet3::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(70deg);
+            width: 140px;
+            height: 140px;
+            border: 10px solid transparent;
+            border-top: 10px solid #d4ac0d;
+            border-bottom: 10px solid #d4ac0d;
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 5px transparent,
+                inset 0 0 0 8px rgba(241, 196, 15, 0.3),
+                0 -5px 0 0 #f1c40f,
+                0 5px 0 0 #f1c40f,
+                0 -12px 0 0 rgba(212, 172, 13, 0.5),
+                0 12px 0 0 rgba(212, 172, 13, 0.5);
+        }
+
+        /* Purple/Ice planet - with crystalline surface */
+        .planet4 {
+            width: 55px;
+            height: 55px;
+            top: 25%;
+            left: 42%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #d7bde2 0%,
+                    #bb8fce 20%,
+                    #8e44ad 45%,
+                    #6c3483 70%,
+                    #4a235a 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -7px -7px 0 rgba(0,0,0,0.35),
+                inset 5px 5px 0 rgba(255,255,255,0.3),
+                0 0 0 3px #512e5f,
+                0 0 12px rgba(142, 68, 173, 0.3),
+                5px 5px 0 rgba(0,0,0,0.5);
+            animation: planetBob 2.5s steps(6) infinite;
+        }
+
+        .planet4::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            top: 12px;
+            left: 15px;
+            box-shadow:
+                12px 8px 0 4px rgba(255,255,255,0.3),
+                5px 20px 0 3px rgba(255,255,255,0.25),
+                20px 18px 0 5px rgba(200,180,220,0.4);
+        }
+
+        /* Moon - with detailed craters */
+        .moon {
+            position: fixed;
+            width: 38px;
+            height: 38px;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #ecf0f1 0%,
+                    #d5dbdb 30%,
+                    #bdc3c7 50%,
+                    #95a5a6 75%,
+                    #7f8c8d 100%
+                );
+            border-radius: 50%;
+            top: 15%;
+            left: 58%;
+            box-shadow:
+                inset -5px -5px 0 rgba(0,0,0,0.25),
+                inset 4px 4px 0 rgba(255,255,255,0.35),
+                0 0 0 2px #707b7c,
+                0 0 10px rgba(236, 240, 241, 0.2),
+                4px 4px 0 rgba(0,0,0,0.4);
+            animation: planetBob 2s steps(6) infinite reverse;
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #a6acaf;
+            border-radius: 50%;
+            top: 10px;
+            left: 8px;
+            box-shadow:
+                12px 6px 0 4px #909497,
+                6px 18px 0 3px #a6acaf,
+                18px 14px 0 2px #808b96,
+                -2px 22px 0 2px #909497,
+                inset 1px 1px 0 rgba(0,0,0,0.2);
+        }
+
+        @keyframes planetBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Pixel asteroid - with more detail */
+        .asteroid {
+            position: fixed;
+            width: 22px;
+            height: 20px;
+            background: #5d6d7e;
+            top: 58%;
+            left: 18%;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            box-shadow:
+                inset -4px -4px 0 #2c3e50,
+                inset 3px 3px 0 #85929e;
+            animation: asteroidFloat 5s steps(10) infinite;
+        }
+
+        .asteroid::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #4a5568;
+            border-radius: 50%;
+            top: 6px;
+            left: 8px;
+            box-shadow: 6px 4px 0 2px #3d4852;
+        }
+
+        @keyframes asteroidFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+
+        /* Neptune-like blue planet - with storm bands */
+        .planet5 {
+            width: 95px;
+            height: 95px;
+            top: 48%;
+            right: 5%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #81ecec 0%,
+                    #74b9ff 20%,
+                    #0984e3 40%,
+                    #0652dd 65%,
+                    #1e3799 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -12px -12px 0 rgba(0,0,0,0.35),
+                inset 10px 10px 0 rgba(255,255,255,0.2),
+                0 0 0 4px #1e3799,
+                0 0 20px rgba(9, 132, 227, 0.3),
+                10px 10px 0 rgba(0,0,0,0.5);
+            animation: planetBob 4.5s steps(6) infinite;
+        }
+
+        .planet5::before {
+            content: '';
+            position: absolute;
+            width: 75px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            top: 35px;
+            left: 10px;
+            border-radius: 50%;
+            box-shadow:
+                -5px 18px 0 5px rgba(200,230,255,0.15),
+                8px -15px 0 8px rgba(255,255,255,0.1);
+        }
+
+        .planet5::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 10px;
+            background: rgba(0,100,180,0.5);
+            border-radius: 50%;
+            top: 55px;
+            left: 25px;
+            box-shadow: 30px -20px 0 8px rgba(0,80,150,0.4);
+        }
+
+        /* Dwarf orange planet - volcanic surface */
+        .planet6 {
+            width: 42px;
+            height: 42px;
+            bottom: 65%;
+            left: 28%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #ffeaa7 0%,
+                    #fab1a0 25%,
+                    #e17055 50%,
+                    #d35400 75%,
+                    #a04000 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -6px -6px 0 rgba(0,0,0,0.35),
+                inset 5px 5px 0 rgba(255,255,255,0.25),
+                0 0 0 2px #a04000,
+                0 0 10px rgba(211, 84, 0, 0.25),
+                5px 5px 0 rgba(0,0,0,0.5);
+            animation: planetBob 3s steps(6) infinite reverse;
+        }
+
+        .planet6::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 15px;
+            left: 12px;
+            box-shadow:
+                10px 5px 0 3px #e74c3c,
+                4px 12px 0 2px #ff7675,
+                15px 10px 0 2px #d63031;
+        }
+
+        /* Green/Teal alien planet - bioluminescent */
+        .planet7 {
+            width: 70px;
+            height: 70px;
+            top: 35%;
+            left: 7%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #55efc4 0%,
+                    #00cec9 25%,
+                    #00b894 50%,
+                    #00a085 75%,
+                    #006266 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -10px -10px 0 rgba(0,0,0,0.35),
+                inset 8px 8px 0 rgba(255,255,255,0.2),
+                0 0 0 3px #006266,
+                0 0 18px rgba(0, 206, 201, 0.35),
+                8px 8px 0 rgba(0,0,0,0.5);
+            animation: planetBob 3.8s steps(6) infinite;
+        }
+
+        .planet7::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(85, 239, 196, 0.6);
+            border-radius: 50%;
+            top: 18px;
+            left: 22px;
+            box-shadow:
+                18px 12px 0 8px rgba(0, 206, 201, 0.4),
+                8px 28px 0 6px rgba(85, 239, 196, 0.35),
+                -5px 35px 0 4px rgba(0, 184, 148, 0.3);
+        }
+
+        .planet7::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 8px;
+            background: rgba(0, 100, 102, 0.4);
+            top: 45px;
+            left: 20px;
+            border-radius: 50%;
+        }
+
+        /* Pink/Magenta distant planet - gaseous with rings */
+        /* Planet 8 container for orbiting moon */
+        .planet8-system {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            bottom: 35%;
+            right: 25%;
+            /* Center the system so planet is in middle */
+        }
+
+        .planet8 {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #ffc0cb 0%,
+                    #fd79a8 25%,
+                    #e84393 50%,
+                    #c44569 75%,
+                    #833471 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -8px -8px 0 rgba(0,0,0,0.35),
+                inset 6px 6px 0 rgba(255,255,255,0.25),
+                0 0 0 3px #833471,
+                0 0 15px rgba(232, 67, 147, 0.3),
+                6px 6px 0 rgba(0,0,0,0.5);
+            animation: planetBob 2.8s steps(6) infinite reverse;
+        }
+
+        /* Orbiting moon around pink planet */
+        .orbiting-moon {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #ecf0f1 0%,
+                    #d5dbdb 40%,
+                    #bdc3c7 70%,
+                    #95a5a6 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -3px -3px 0 rgba(0,0,0,0.25),
+                inset 2px 2px 0 rgba(255,255,255,0.3),
+                0 0 0 1px #707b7c,
+                2px 2px 0 rgba(0,0,0,0.4);
+            /* Position at top of orbit path */
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: orbitMoon 8s linear infinite;
+            transform-origin: 50% 60px; /* Orbit around center of system */
+        }
+
+        .orbiting-moon::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #a6acaf;
+            border-radius: 50%;
+            top: 5px;
+            left: 4px;
+            box-shadow: 6px 3px 0 2px #909497;
+        }
+
+        @keyframes orbitMoon {
+            0% { transform: translateX(-50%) rotate(0deg) translateY(0); }
+            100% { transform: translateX(-50%) rotate(360deg) translateY(0); }
+        }
+
+        .planet8::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 6px;
+            background: rgba(255,200,220,0.4);
+            top: 20px;
+            left: 8px;
+            border-radius: 50%;
+            box-shadow:
+                25px 8px 0 8px rgba(255,180,200,0.3),
+                10px 22px 0 6px rgba(255,160,180,0.25);
+        }
+
+        .planet8::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            width: 90px;
+            height: 90px;
+            border: 4px solid transparent;
+            border-top: 4px solid rgba(253, 121, 168, 0.5);
+            border-bottom: 4px solid rgba(253, 121, 168, 0.5);
+            border-radius: 50%;
+        }
+
+        /* Jupiter-like gas giant - Great Red Spot */
+        .planet9 {
+            width: 105px;
+            height: 105px;
+            top: 3%;
+            left: 22%;
+            background:
+                radial-gradient(circle at 35% 35%,
+                    #ffeaa7 0%,
+                    #f9ca24 15%,
+                    #f0932b 30%,
+                    #e58e26 50%,
+                    #cd853f 70%,
+                    #8b4513 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -15px -15px 0 rgba(0,0,0,0.35),
+                inset 12px 12px 0 rgba(255,255,255,0.15),
+                0 0 0 5px #8b4513,
+                0 0 20px rgba(249, 202, 36, 0.25),
+                12px 12px 0 rgba(0,0,0,0.5);
+            animation: planetBob 5s steps(6) infinite;
+            overflow: hidden;
+        }
+
+        .planet9::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 14px;
+            background: rgba(139, 69, 19, 0.45);
+            top: 28px;
+            left: -12px;
+            box-shadow:
+                0 22px 0 rgba(245, 176, 65, 0.35),
+                0 44px 0 rgba(139, 69, 19, 0.35),
+                0 66px 0 rgba(205, 133, 63, 0.25);
+        }
+
+        .planet9::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 14px;
+            background: #c0392b;
+            border-radius: 50%;
+            top: 55px;
+            left: 35px;
+            box-shadow:
+                inset 2px 2px 0 rgba(255,100,100,0.3),
+                0 0 5px rgba(192, 57, 43, 0.4);
+        }
+
+        /* Tiny distant moon - with surface detail */
+        .moon2 {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #ecf0f1 0%,
+                    #dfe6e9 40%,
+                    #b2bec3 70%,
+                    #636e72 100%
+                );
+            border-radius: 50%;
+            bottom: 20%;
+            left: 65%;
+            box-shadow:
+                inset -3px -3px 0 rgba(0,0,0,0.25),
+                inset 2px 2px 0 rgba(255,255,255,0.3),
+                0 0 0 2px #636e72,
+                3px 3px 0 rgba(0,0,0,0.4);
+            animation: planetBob 2.2s steps(6) infinite;
+        }
+
+        .moon2::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #95a5a6;
+            border-radius: 50%;
+            top: 6px;
+            left: 5px;
+            box-shadow:
+                6px 3px 0 2px #7f8c8d,
+                3px 8px 0 1px #95a5a6;
+        }
+
+        /* Icy blue moon - Europa-like */
+        .moon3 {
+            position: fixed;
+            width: 28px;
+            height: 28px;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #ffffff 0%,
+                    #dff9fb 30%,
+                    #c7ecee 55%,
+                    #74b9ff 80%,
+                    #0984e3 100%
+                );
+            border-radius: 50%;
+            bottom: 25%;
+            right: 23%;
+            box-shadow:
+                inset -4px -4px 0 rgba(0,0,0,0.2),
+                inset 3px 3px 0 rgba(255,255,255,0.45),
+                0 0 0 2px #0984e3,
+                0 0 10px rgba(116, 185, 255, 0.25),
+                4px 4px 0 rgba(0,0,0,0.4);
+            animation: planetBob 1.8s steps(6) infinite reverse;
+        }
+
+        .moon3::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 1px;
+            background: rgba(116, 185, 255, 0.5);
+            top: 10px;
+            left: 3px;
+            transform: rotate(-20deg);
+            box-shadow:
+                2px 8px 0 0 rgba(9, 132, 227, 0.4),
+                -3px 5px 0 0 rgba(116, 185, 255, 0.3);
+        }
+
+        /* Cyan/Turquoise ringed planet - left of button */
+        .planet10 {
+            width: 65px;
+            height: 65px;
+            bottom: 30%;
+            left: 12%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #a8e6cf 0%,
+                    #56ab91 25%,
+                    #36a08a 50%,
+                    #248f7d 75%,
+                    #1a7a6e 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -8px -8px 0 rgba(0,0,0,0.35),
+                inset 6px 6px 0 rgba(255,255,255,0.2),
+                0 0 0 3px #1a7a6e,
+                0 0 15px rgba(86, 171, 145, 0.3),
+                6px 6px 0 rgba(0,0,0,0.5);
+            animation: planetBob 3.2s steps(6) infinite;
+        }
+
+        .planet10::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(168, 230, 207, 0.5);
+            border-radius: 50%;
+            top: 15px;
+            left: 18px;
+            box-shadow:
+                15px 10px 0 6px rgba(86, 171, 145, 0.4),
+                8px 25px 0 4px rgba(168, 230, 207, 0.35),
+                25px 20px 0 3px rgba(54, 160, 138, 0.3);
+        }
+
+        .planet10::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(72deg);
+            width: 100px;
+            height: 100px;
+            border: 5px solid transparent;
+            border-top: 5px solid rgba(168, 230, 207, 0.6);
+            border-bottom: 5px solid rgba(168, 230, 207, 0.6);
+            border-radius: 50%;
+            box-shadow:
+                0 -3px 0 0 rgba(86, 171, 145, 0.4),
+                0 3px 0 0 rgba(86, 171, 145, 0.4);
+        }
+
+        /* Nebula/Space dust */
+        .nebula {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            top: 5%;
+            left: 60%;
+            filter: blur(2px);
+            animation: nebulaPulse 5s steps(5) infinite;
+            pointer-events: none;
+        }
+
+        .nebula2 {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(ellipse, rgba(240, 147, 251, 0.1) 0%, transparent 70%);
+            bottom: 30%;
+            right: 30%;
+            filter: blur(2px);
+            animation: nebulaPulse 6s steps(5) infinite reverse;
+            pointer-events: none;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* ISS - International Space Station */
+        .iss {
+            position: fixed;
+            top: 6%;
+            left: 5%;
+            width: 120px;
+            height: 50px;
+            animation: issSpin 20s linear infinite;
+            z-index: 5;
+        }
+
+        /* Main truss (horizontal beam) */
+        .iss-truss {
+            position: absolute;
+            width: 100px;
+            height: 6px;
+            background: linear-gradient(to bottom, #ecf0f1, #bdc3c7, #95a5a6);
+            top: 22px;
+            left: 10px;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.4),
+                inset 0 -1px 0 rgba(0,0,0,0.2);
+        }
+
+        /* Modules (habitation areas) */
+        .iss-module1 {
+            position: absolute;
+            width: 20px;
+            height: 12px;
+            background: linear-gradient(to bottom, #ecf0f1, #d5dbdb, #aeb6bf);
+            top: 19px;
+            left: 30px;
+            border-radius: 3px;
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+        }
+
+        .iss-module2 {
+            position: absolute;
+            width: 25px;
+            height: 14px;
+            background: linear-gradient(to bottom, #f8f9f9, #e5e8e8, #cacfd2);
+            top: 18px;
+            left: 52px;
+            border-radius: 4px;
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+        }
+
+        .iss-module3 {
+            position: absolute;
+            width: 16px;
+            height: 10px;
+            background: linear-gradient(to bottom, #ecf0f1, #d0d3d4);
+            top: 20px;
+            left: 80px;
+            border-radius: 2px;
+        }
+
+        /* Solar panel arrays - left side */
+        .iss-panel-left1 {
+            position: absolute;
+            width: 8px;
+            height: 35px;
+            background: linear-gradient(to right, #1a5276, #2874a6, #3498db, #2874a6, #1a5276);
+            top: 7px;
+            left: 5px;
+            box-shadow:
+                inset 1px 0 0 rgba(255,255,255,0.2),
+                inset -1px 0 0 rgba(0,0,0,0.2),
+                2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .iss-panel-left2 {
+            position: absolute;
+            width: 8px;
+            height: 35px;
+            background: linear-gradient(to right, #1a5276, #2874a6, #3498db, #2874a6, #1a5276);
+            top: 7px;
+            left: 18px;
+            box-shadow:
+                inset 1px 0 0 rgba(255,255,255,0.2),
+                inset -1px 0 0 rgba(0,0,0,0.2),
+                2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Solar panel arrays - right side */
+        .iss-panel-right1 {
+            position: absolute;
+            width: 8px;
+            height: 35px;
+            background: linear-gradient(to right, #1a5276, #2874a6, #3498db, #2874a6, #1a5276);
+            top: 7px;
+            right: 18px;
+            box-shadow:
+                inset 1px 0 0 rgba(255,255,255,0.2),
+                inset -1px 0 0 rgba(0,0,0,0.2),
+                2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .iss-panel-right2 {
+            position: absolute;
+            width: 8px;
+            height: 35px;
+            background: linear-gradient(to right, #1a5276, #2874a6, #3498db, #2874a6, #1a5276);
+            top: 7px;
+            right: 5px;
+            box-shadow:
+                inset 1px 0 0 rgba(255,255,255,0.2),
+                inset -1px 0 0 rgba(0,0,0,0.2),
+                2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Panel grid lines */
+        .iss-panel-left1::before,
+        .iss-panel-left2::before,
+        .iss-panel-right1::before,
+        .iss-panel-right2::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 4px,
+                rgba(0,0,0,0.2) 4px,
+                rgba(0,0,0,0.2) 5px
+            );
+        }
+
+        /* Blinking lights */
+        .iss-light1 {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #e74c3c;
+            border-radius: 50%;
+            top: 17px;
+            left: 40px;
+            animation: issLight 1s steps(2) infinite;
+            box-shadow: 0 0 4px #e74c3c;
+        }
+
+        .iss-light2 {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #2ecc71;
+            border-radius: 50%;
+            top: 17px;
+            left: 70px;
+            animation: issLight 1s steps(2) infinite 0.5s;
+            box-shadow: 0 0 4px #2ecc71;
+        }
+
+        @keyframes issSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes issLight {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Satellite 1 - Communications satellite */
+        .satellite1 {
+            position: fixed;
+            top: 42%;
+            right: 38%;
+            width: 24px;
+            height: 12px;
+            animation: satelliteFloat 20s linear infinite;
+            z-index: 4;
+        }
+
+        .satellite1-body {
+            position: absolute;
+            width: 12px;
+            height: 8px;
+            background: linear-gradient(to bottom, #bdc3c7, #7f8c8d);
+            top: 2px;
+            left: 6px;
+            box-shadow: inset 0 -2px 0 #5d6d7e;
+        }
+
+        .satellite1-panel-left,
+        .satellite1-panel-right {
+            position: absolute;
+            width: 8px;
+            height: 12px;
+            background: linear-gradient(to bottom, #2980b9, #1a5276);
+            top: 0;
+        }
+
+        .satellite1-panel-left { left: 0; }
+        .satellite1-panel-right { right: 0; }
+
+        .satellite1::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #e74c3c;
+            top: 3px;
+            left: 10px;
+            animation: stationLight 0.8s steps(2) infinite;
+        }
+
+        @keyframes satelliteFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(10px) rotate(-5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Satellite 2 - Hubble-style telescope */
+        .satellite2 {
+            position: fixed;
+            bottom: 55%;
+            left: 55%;
+            width: 35px;
+            height: 14px;
+            animation: satelliteFloat2 25s linear infinite;
+            z-index: 4;
+        }
+
+        .satellite2-tube {
+            position: absolute;
+            width: 25px;
+            height: 10px;
+            background: linear-gradient(to bottom, #ecf0f1, #bdc3c7, #95a5a6);
+            top: 2px;
+            left: 5px;
+            border-radius: 2px;
+        }
+
+        .satellite2-aperture {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #2c3e50;
+            border-radius: 50%;
+            top: 3px;
+            left: 0;
+            box-shadow: inset 2px 2px 0 #3498db;
+        }
+
+        .satellite2-panels {
+            position: absolute;
+            width: 35px;
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #2980b9, #3498db);
+            top: 5px;
+            left: 0;
+        }
+
+        @keyframes satelliteFloat2 {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            50% { transform: translateX(15px) translateY(-8px) rotate(3deg); }
+            100% { transform: translateX(0) translateY(0) rotate(0deg); }
+        }
+
+        /* Satellite 3 - GPS/Weather satellite */
+        .satellite3 {
+            position: fixed;
+            top: 70%;
+            left: 40%;
+            width: 20px;
+            height: 20px;
+            animation: satelliteOrbit 35s linear infinite;
+            z-index: 4;
+        }
+
+        .satellite3-core {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            top: 5px;
+            left: 5px;
+        }
+
+        .satellite3-dish {
+            position: absolute;
+            width: 8px;
+            height: 4px;
+            background: #bdc3c7;
+            border-radius: 50% 50% 0 0;
+            top: 2px;
+            left: 6px;
+        }
+
+        .satellite3-arm {
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #7f8c8d;
+            top: 9px;
+            left: 0;
+        }
+
+        @keyframes satelliteOrbit {
+            0% { transform: rotate(0deg) translateX(10px); }
+            100% { transform: rotate(360deg) translateX(10px); }
+        }
+
+        /* Comet with glowing tail */
+        .comet {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            animation: cometFly 18s linear infinite;
+            z-index: 3;
+        }
+
+        .comet-head {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle at 40% 40%, #fff, #dff9fb, #74b9ff);
+            border-radius: 50%;
+            box-shadow:
+                0 0 10px #74b9ff,
+                0 0 20px rgba(116, 185, 255, 0.5);
+        }
+
+        .comet-tail {
+            position: absolute;
+            width: 80px;
+            height: 10px;
+            background: linear-gradient(to right, rgba(116, 185, 255, 0.8), rgba(116, 185, 255, 0.3), transparent);
+            top: 2px;
+            left: 10px;
+            transform-origin: left center;
+            clip-path: polygon(0 20%, 100% 0%, 100% 100%, 0 80%);
+        }
+
+        .comet-tail-dust {
+            position: absolute;
+            width: 60px;
+            height: 20px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(200, 220, 255, 0.2), transparent);
+            top: -3px;
+            left: 12px;
+            clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0 70%);
+        }
+
+        @keyframes cometFly {
+            0% {
+                top: -50px;
+                right: -100px;
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                top: 120%;
+                right: 120%;
+                opacity: 0;
+            }
+        }
+
+        /* Black Hole with accretion disk */
+        .black-hole {
+            position: fixed;
+            width: 45px;
+            height: 45px;
+            top: 85%;
+            right: 55%;
+            z-index: 2;
+        }
+
+        .black-hole-core {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            top: 12px;
+            left: 12px;
+            box-shadow:
+                0 0 0 3px #1a1a2e,
+                0 0 10px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .black-hole-disk {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border: 4px solid transparent;
+            border-top: 4px solid #f39c12;
+            border-bottom: 4px solid #e74c3c;
+            border-radius: 50%;
+            animation: diskSpin 3s linear infinite;
+            box-shadow:
+                0 0 8px rgba(243, 156, 18, 0.5),
+                inset 0 0 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .black-hole-glow {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: -2px;
+            left: -2px;
+            background: radial-gradient(circle, transparent 30%, rgba(243, 156, 18, 0.15) 60%, transparent 70%);
+            animation: holeGlow 2s steps(4) infinite;
+        }
+
+        @keyframes diskSpin {
+            0% { transform: rotateX(70deg) rotate(0deg); }
+            100% { transform: rotateX(70deg) rotate(360deg); }
+        }
+
+        @keyframes holeGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Additional asteroids */
+        .asteroid2 {
+            position: fixed;
+            width: 16px;
+            height: 14px;
+            background: #6c7a89;
+            top: 75%;
+            right: 72%;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 40%, 85% 100%, 15% 100%, 0% 60%);
+            box-shadow:
+                inset -3px -3px 0 #2c3e50,
+                inset 2px 2px 0 #95a5a6;
+            animation: asteroidFloat2 7s steps(10) infinite;
+        }
+
+        .asteroid2::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 50%;
+            top: 5px;
+            left: 6px;
+            box-shadow: 5px 2px 0 1px #3d4852;
+        }
+
+        @keyframes asteroidFloat2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(-180deg); }
+        }
+
+        .asteroid3 {
+            position: fixed;
+            width: 12px;
+            height: 10px;
+            background: #8395a7;
+            top: 28%;
+            right: 15%;
+            clip-path: polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
+            box-shadow:
+                inset -2px -2px 0 #576574,
+                inset 1px 1px 0 #c8d6e5;
+            animation: asteroidFloat3 4s steps(8) infinite reverse;
+        }
+
+        @keyframes asteroidFloat3 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(90deg); }
+        }
+
+        /* Asteroid Belt - left of Earth */
+        .asteroid-belt {
+            position: fixed;
+            top: 2%;
+            right: 28%;
+            width: 100px;
+            height: 70px;
+            pointer-events: none;
+        }
+
+        .belt-rock {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .belt-rock-1 {
+            width: 4px;
+            height: 4px;
+            top: 8px;
+            left: 5px;
+            background: #e74c3c;
+            box-shadow: 0 0 3px #e74c3c;
+            animation: beltFloat1 4s steps(8) infinite;
+        }
+
+        .belt-rock-2 {
+            width: 5px;
+            height: 5px;
+            top: 20px;
+            left: 20px;
+            background: #f39c12;
+            box-shadow: 0 0 4px #f39c12;
+            animation: beltFloat2 5s steps(8) infinite reverse;
+        }
+
+        .belt-rock-3 {
+            width: 3px;
+            height: 3px;
+            top: 5px;
+            left: 40px;
+            background: #9b59b6;
+            box-shadow: 0 0 3px #9b59b6;
+            animation: beltFloat3 3.5s steps(8) infinite;
+        }
+
+        .belt-rock-4 {
+            width: 4px;
+            height: 4px;
+            top: 30px;
+            left: 50px;
+            background: #3498db;
+            box-shadow: 0 0 3px #3498db;
+            animation: beltFloat1 4.5s steps(8) infinite reverse;
+        }
+
+        .belt-rock-5 {
+            width: 3px;
+            height: 3px;
+            top: 12px;
+            left: 65px;
+            background: #1abc9c;
+            box-shadow: 0 0 3px #1abc9c;
+            animation: beltFloat2 3s steps(8) infinite;
+        }
+
+        .belt-rock-6 {
+            width: 6px;
+            height: 6px;
+            top: 40px;
+            left: 75px;
+            background: #e67e22;
+            box-shadow: 0 0 4px #e67e22;
+            animation: beltFloat3 5.5s steps(8) infinite reverse;
+        }
+
+        .belt-rock-7 {
+            width: 3px;
+            height: 3px;
+            top: 50px;
+            left: 35px;
+            background: #fd79a8;
+            box-shadow: 0 0 3px #fd79a8;
+            animation: beltFloat1 3.2s steps(8) infinite;
+        }
+
+        .belt-rock-8 {
+            width: 4px;
+            height: 4px;
+            top: 55px;
+            left: 10px;
+            background: #00cec9;
+            box-shadow: 0 0 3px #00cec9;
+            animation: beltFloat2 4.8s steps(8) infinite reverse;
+        }
+
+        .belt-rock-9 {
+            width: 2px;
+            height: 2px;
+            top: 60px;
+            left: 60px;
+            background: #a29bfe;
+            box-shadow: 0 0 2px #a29bfe;
+            animation: beltFloat3 2.8s steps(8) infinite;
+        }
+
+        .belt-rock-10 {
+            width: 3px;
+            height: 3px;
+            top: 18px;
+            left: 85px;
+            background: #ff7675;
+            box-shadow: 0 0 3px #ff7675;
+            animation: beltFloat1 3.8s steps(8) infinite reverse;
+        }
+
+        .belt-rock-11 {
+            width: 2px;
+            height: 2px;
+            top: 35px;
+            left: 8px;
+            background: #74b9ff;
+            box-shadow: 0 0 2px #74b9ff;
+            animation: beltFloat2 4.2s steps(8) infinite;
+        }
+
+        .belt-rock-12 {
+            width: 3px;
+            height: 3px;
+            top: 45px;
+            left: 92px;
+            background: #55efc4;
+            box-shadow: 0 0 3px #55efc4;
+            animation: beltFloat3 3.6s steps(8) infinite reverse;
+        }
+
+        @keyframes beltFloat1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(45deg); }
+        }
+
+        @keyframes beltFloat2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(-60deg); }
+        }
+
+        @keyframes beltFloat3 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(90deg); }
+        }
+
+        /* Distant Galaxy/Spiral */
+        .galaxy {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            bottom: 12%;
+            right: 8%;
+            opacity: 0.6;
+            animation: galaxySpin 40s linear infinite;
+        }
+
+        .galaxy-core {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #ffeaa7 0%, #f39c12 50%, transparent 70%);
+            border-radius: 50%;
+            top: 19px;
+            left: 19px;
+            box-shadow: 0 0 8px rgba(243, 156, 18, 0.5);
+        }
+
+        .galaxy-arm1, .galaxy-arm2 {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 2px solid transparent;
+            border-top: 2px solid rgba(116, 185, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        .galaxy-arm1 {
+            transform: rotate(0deg);
+        }
+
+        .galaxy-arm2 {
+            transform: rotate(180deg);
+        }
+
+        .galaxy::before {
+            content: '';
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            top: 7px;
+            left: 7px;
+            border: 1px solid rgba(253, 121, 168, 0.3);
+            border-radius: 50%;
+        }
+
+        @keyframes galaxySpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Second distant galaxy - larger, in opposite corner */
+        .galaxy2 {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 75%;
+            opacity: 0.4;
+            animation: galaxySpin2 60s linear infinite reverse;
+        }
+
+        .galaxy2-core {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle, #fd79a8 0%, #e84393 50%, transparent 70%);
+            border-radius: 50%;
+            top: 31px;
+            left: 31px;
+            box-shadow: 0 0 12px rgba(232, 67, 147, 0.5);
+        }
+
+        .galaxy2-arm1, .galaxy2-arm2, .galaxy2-arm3 {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 3px solid transparent;
+            border-top: 3px solid rgba(253, 121, 168, 0.35);
+            border-radius: 50%;
+        }
+
+        .galaxy2-arm1 {
+            transform: rotate(0deg);
+        }
+
+        .galaxy2-arm2 {
+            transform: rotate(120deg);
+        }
+
+        .galaxy2-arm3 {
+            transform: rotate(240deg);
+        }
+
+        .galaxy2::before {
+            content: '';
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            top: 12px;
+            left: 12px;
+            border: 2px solid rgba(116, 185, 255, 0.25);
+            border-radius: 50%;
+        }
+
+        .galaxy2::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 20px;
+            left: 20px;
+            background: radial-gradient(ellipse, rgba(253, 121, 168, 0.1) 0%, transparent 60%);
+            border-radius: 50%;
+        }
+
+        @keyframes galaxySpin2 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Third galaxy - very distant, small */
+        .galaxy3 {
+            position: fixed;
+            width: 35px;
+            height: 35px;
+            bottom: 55%;
+            left: 8%;
+            opacity: 0.35;
+            animation: galaxySpin 50s linear infinite;
+        }
+
+        .galaxy3-core {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #81ecec 0%, #00cec9 50%, transparent 70%);
+            border-radius: 50%;
+            top: 13px;
+            left: 13px;
+            box-shadow: 0 0 6px rgba(0, 206, 201, 0.4);
+        }
+
+        .galaxy3-arm1, .galaxy3-arm2 {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border: 1px solid transparent;
+            border-top: 1px solid rgba(129, 236, 236, 0.3);
+            border-radius: 50%;
+        }
+
+        .galaxy3-arm1 {
+            transform: rotate(45deg);
+        }
+
+        .galaxy3-arm2 {
+            transform: rotate(225deg);
+        }
+
+        /* Space Probe/Voyager-style */
+        .probe {
+            position: fixed;
+            top: 55%;
+            left: 85%;
+            width: 30px;
+            height: 20px;
+            animation: probeFloat 12s ease-in-out infinite;
+            z-index: 4;
+        }
+
+        .probe-body {
+            position: absolute;
+            width: 14px;
+            height: 8px;
+            background: linear-gradient(to bottom, #f1c40f, #d4ac0d);
+            top: 6px;
+            left: 8px;
+        }
+
+        .probe-dish {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #bdc3c7;
+            border-radius: 50%;
+            top: 4px;
+            left: 0;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            transform: rotate(45deg);
+        }
+
+        .probe-arm {
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background: #7f8c8d;
+            top: 9px;
+            right: 0;
+        }
+
+        .probe-antenna {
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: #95a5a6;
+            top: 0;
+            left: 14px;
+        }
+
+        .probe-antenna::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #e74c3c;
+            border-radius: 50%;
+            top: -2px;
+            left: -1px;
+            animation: stationLight 1.2s steps(2) infinite;
+        }
+
+        @keyframes probeFloat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-15px) translateX(-10px); }
+        }
+
+        /* Floating debris/space junk */
+        .debris1 {
+            position: fixed;
+            width: 8px;
+            height: 6px;
+            background: #5d6d7e;
+            top: 38%;
+            left: 78%;
+            clip-path: polygon(0 0, 100% 20%, 80% 100%, 20% 80%);
+            animation: debrisFloat 8s steps(10) infinite;
+        }
+
+        .debris2 {
+            position: fixed;
+            width: 6px;
+            height: 8px;
+            background: #7f8c8d;
+            top: 22%;
+            left: 35%;
+            transform: rotate(30deg);
+            animation: debrisFloat 6s steps(10) infinite reverse;
+        }
+
+        .debris3 {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: #bdc3c7;
+            bottom: 45%;
+            right: 18%;
+            border-radius: 50%;
+            animation: debrisFloat 10s steps(10) infinite;
+        }
+
+        @keyframes debrisFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(5px) rotate(270deg); }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 1.2rem; }
+            .subtitle { font-size: 0.5rem; }
+            .rocket-svg { width: 100px; height: 150px; }
+            .planet1, .planet2, .planet3, .planet5, .planet6, .planet7, .planet9, .planet10, .moon2, .moon3, .asteroid, .asteroid2, .asteroid3 { transform: scale(0.5); }
+            .planet3::after, .planet8::after, .planet10::after { display: none; }
+            .planet8-system { transform: scale(0.5); }
+            .ufo, .iss, .satellite3, .probe, .black-hole, .galaxy, .galaxy2, .galaxy3, .debris1, .debris2, .debris3 { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="stars" id="starfield"></div>
+
+    <!-- Nebula effects -->
+    <div class="nebula"></div>
+    <div class="nebula2"></div>
+
+    <!-- Planets -->
+    <div class="planet planet1"></div>
+    <div class="planet planet2"></div>
+    <div class="planet planet3"></div>
+    <div class="planet planet5"></div>
+    <div class="planet planet6"></div>
+    <div class="planet planet7"></div>
+    <div class="planet8-system">
+        <div class="orbiting-moon"></div>
+        <div class="planet planet8"></div>
+    </div>
+    <div class="planet planet9"></div>
+    <div class="planet planet10"></div>
+    <div class="moon3"></div>
+    <div class="asteroid"></div>
+
+    <!-- ISS - International Space Station -->
+    <div class="iss">
+        <div class="iss-panel-left1"></div>
+        <div class="iss-panel-left2"></div>
+        <div class="iss-truss"></div>
+        <div class="iss-module1"></div>
+        <div class="iss-module2"></div>
+        <div class="iss-module3"></div>
+        <div class="iss-panel-right1"></div>
+        <div class="iss-panel-right2"></div>
+        <div class="iss-light1"></div>
+        <div class="iss-light2"></div>
+    </div>
+
+    <!-- UFO -->
+    <div class="ufo">
+        <div class="ufo-dome"></div>
+        <div class="ufo-body"></div>
+        <div class="ufo-lights"></div>
+    </div>
+
+    <!-- Satellite -->
+    <div class="satellite3">
+        <div class="satellite3-arm"></div>
+        <div class="satellite3-core"></div>
+        <div class="satellite3-dish"></div>
+    </div>
+
+    <!-- Black Hole -->
+    <div class="black-hole">
+        <div class="black-hole-glow"></div>
+        <div class="black-hole-disk"></div>
+        <div class="black-hole-core"></div>
+    </div>
+
+    <!-- Additional Asteroids -->
+    <div class="asteroid2"></div>
+    <div class="asteroid3"></div>
+
+    <!-- Asteroid Belt - left of Earth -->
+    <div class="asteroid-belt">
+        <div class="belt-rock belt-rock-1"></div>
+        <div class="belt-rock belt-rock-2"></div>
+        <div class="belt-rock belt-rock-3"></div>
+        <div class="belt-rock belt-rock-4"></div>
+        <div class="belt-rock belt-rock-5"></div>
+        <div class="belt-rock belt-rock-6"></div>
+        <div class="belt-rock belt-rock-7"></div>
+        <div class="belt-rock belt-rock-8"></div>
+        <div class="belt-rock belt-rock-9"></div>
+        <div class="belt-rock belt-rock-10"></div>
+        <div class="belt-rock belt-rock-11"></div>
+        <div class="belt-rock belt-rock-12"></div>
+    </div>
+
+    <!-- Distant Galaxy -->
+    <div class="galaxy">
+        <div class="galaxy-arm1"></div>
+        <div class="galaxy-arm2"></div>
+        <div class="galaxy-core"></div>
+    </div>
+
+    <!-- Second Distant Galaxy - pink/magenta -->
+    <div class="galaxy2">
+        <div class="galaxy2-arm1"></div>
+        <div class="galaxy2-arm2"></div>
+        <div class="galaxy2-arm3"></div>
+        <div class="galaxy2-core"></div>
+    </div>
+
+    <!-- Third Distant Galaxy - small teal -->
+    <div class="galaxy3">
+        <div class="galaxy3-arm1"></div>
+        <div class="galaxy3-arm2"></div>
+        <div class="galaxy3-core"></div>
+    </div>
+
+    <!-- Space Probe -->
+    <div class="probe">
+        <div class="probe-dish"></div>
+        <div class="probe-body"></div>
+        <div class="probe-arm"></div>
+        <div class="probe-antenna"></div>
+    </div>
+
+    <!-- Space Debris -->
+    <div class="debris1"></div>
+    <div class="debris2"></div>
+    <div class="debris3"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="title">WELCOME</h1>
+        <p class="subtitle">STRAP IN TO BEGIN YOUR JOURNEY</p>
+
+        <div class="rocket-wrapper" id="rocketWrapper">
+            <!-- Pixel Rocket SVG -->
+            <svg class="rocket-svg" viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+                <defs>
+                    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#c0c0c0"/>
+                        <stop offset="50%" style="stop-color:#ffffff"/>
+                        <stop offset="100%" style="stop-color:#a0a0a0"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Left fin -->
+                <rect x="4" y="60" width="8" height="20" fill="#e74c3c"/>
+                <rect x="8" y="56" width="8" height="8" fill="#e74c3c"/>
+                <rect x="4" y="60" width="4" height="4" fill="#c0392b"/>
+
+                <!-- Right fin -->
+                <rect x="52" y="60" width="8" height="20" fill="#e74c3c"/>
+                <rect x="48" y="56" width="8" height="8" fill="#e74c3c"/>
+                <rect x="56" y="60" width="4" height="4" fill="#c0392b"/>
+
+                <!-- Main body -->
+                <rect x="16" y="24" width="32" height="52" fill="url(#bodyGrad)"/>
+                <rect x="20" y="20" width="24" height="8" fill="url(#bodyGrad)"/>
+
+                <!-- Nose cone -->
+                <rect x="24" y="4" width="16" height="8" fill="#e74c3c"/>
+                <rect x="20" y="12" width="24" height="8" fill="#e74c3c"/>
+                <rect x="28" y="0" width="8" height="4" fill="#c0392b"/>
+
+                <!-- Window -->
+                <rect x="24" y="32" width="16" height="16" fill="#3498db"/>
+                <rect x="28" y="36" width="8" height="8" fill="#5dade2"/>
+                <rect x="24" y="32" width="4" height="4" fill="#85c1e9"/>
+
+                <!-- Window frame -->
+                <rect x="24" y="32" width="16" height="2" fill="#2c3e50"/>
+                <rect x="24" y="46" width="16" height="2" fill="#2c3e50"/>
+                <rect x="24" y="32" width="2" height="16" fill="#2c3e50"/>
+                <rect x="38" y="32" width="2" height="16" fill="#2c3e50"/>
+
+                <!-- Body stripes -->
+                <rect x="16" y="56" width="32" height="4" fill="#e74c3c"/>
+                <rect x="20" y="64" width="24" height="4" fill="#c0392b"/>
+
+                <!-- Rivets/details -->
+                <rect x="18" y="28" width="2" height="2" fill="#7f8c8d"/>
+                <rect x="44" y="28" width="2" height="2" fill="#7f8c8d"/>
+                <rect x="18" y="52" width="2" height="2" fill="#7f8c8d"/>
+                <rect x="44" y="52" width="2" height="2" fill="#7f8c8d"/>
+
+                <!-- Bottom thruster -->
+                <rect x="24" y="76" width="16" height="8" fill="#5d6d7e"/>
+                <rect x="28" y="80" width="8" height="8" fill="#2c3e50"/>
+            </svg>
+
+            <!-- Exhaust/Fire -->
+            <div class="exhaust">
+                <div class="pixel-flame pixel-flame-outer"></div>
+            </div>
+        </div>
+
+        <button class="launch-btn" id="launchBtn">>> PRESS TO LAUNCH <<</button>
+    </div>
+
+    <script>
+        // Create many pixel stars
+        const starfield = document.getElementById('starfield');
+        const starCount = 500;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+
+            const sizeRand = Math.random();
+            if (sizeRand < 0.6) {
+                star.classList.add('small');
+            } else if (sizeRand < 0.85) {
+                star.classList.add('medium');
+            } else {
+                star.classList.add('large');
+            }
+
+            if (Math.random() > 0.5) {
+                star.classList.add('twinkle');
+                star.style.animationDelay = Math.random() * 2 + 's';
+            }
+
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+
+            const colorRand = Math.random();
+            if (colorRand > 0.95) {
+                star.style.background = '#ff6b6b';
+                star.style.boxShadow = '0 0 4px #ff6b6b';
+            } else if (colorRand > 0.9) {
+                star.style.background = '#74b9ff';
+                star.style.boxShadow = '0 0 4px #74b9ff';
+            } else if (colorRand > 0.85) {
+                star.style.background = '#ffeaa7';
+                star.style.boxShadow = '0 0 4px #ffeaa7';
+            }
+
+            starfield.appendChild(star);
+        }
+
+        // Create pixel shooting stars
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.top = Math.random() * 40 + '%';
+            star.style.right = '-30px';
+            star.style.animationDuration = (Math.random() * 1 + 1.5) + 's';
+            starfield.appendChild(star);
+
+            setTimeout(() => star.remove(), 2000);
+        }
+
+        setInterval(createShootingStar, 2500);
+        createShootingStar();
+
+        // Create orange meteors (from right side)
+        function createMeteor(type = 'meteor') {
+            const meteor = document.createElement('div');
+            meteor.className = type;
+            meteor.style.top = Math.random() * 40 + '%';
+            meteor.style.right = '-50px';
+
+            // Slower durations for orange meteors
+            let duration, removeTime;
+            if (type === 'meteor-small') {
+                duration = Math.random() * 2 + 6;
+                removeTime = 9000;
+            } else {
+                duration = Math.random() * 2 + 7;
+                removeTime = 10000;
+            }
+
+            meteor.style.animationDuration = duration + 's';
+            document.body.appendChild(meteor);
+
+            setTimeout(() => meteor.remove(), removeTime);
+        }
+
+        // Create left-side orange meteors
+        function createMeteorLeft(type = 'meteor-left') {
+            const meteor = document.createElement('div');
+            meteor.className = type;
+            meteor.style.top = Math.random() * 40 + '%';
+            meteor.style.left = '-50px';
+
+            // Slower durations for orange meteors
+            let duration, removeTime;
+            if (type === 'meteor-small-left') {
+                duration = Math.random() * 2 + 6;
+                removeTime = 9000;
+            } else {
+                duration = Math.random() * 2 + 7;
+                removeTime = 10000;
+            }
+
+            meteor.style.animationDuration = duration + 's';
+            document.body.appendChild(meteor);
+
+            setTimeout(() => meteor.remove(), removeTime);
+        }
+
+        // Meteors from right side (orange only, rare)
+        setInterval(() => createMeteor('meteor'), 12000);
+        setTimeout(() => createMeteor('meteor'), 2000);
+
+        // Meteors from left side (orange only, rare)
+        setInterval(() => createMeteorLeft('meteor-left'), 15000);
+        setTimeout(() => createMeteorLeft('meteor-left'), 8000);
+
+        // Create smoke particle
+        function createSmoke(x, y, size = null) {
+            const smoke = document.createElement('div');
+            smoke.className = 'smoke-particle';
+            const smokeSize = size || (Math.random() * 40 + 25);
+            smoke.style.width = smokeSize + 'px';
+            smoke.style.height = smokeSize + 'px';
+            smoke.style.left = (x + (Math.random() - 0.5) * 80) + 'px';
+            smoke.style.top = y + 'px';
+            const gray = 140 + Math.random() * 80;
+            smoke.style.background = `rgba(${gray}, ${gray}, ${gray}, 0.7)`;
+            // Add random horizontal drift
+            smoke.style.setProperty('--smoke-drift', (Math.random() - 0.5) * 80 + 'px');
+            smoke.style.animation = `smokeRise ${2 + Math.random() * 1.5}s ease-out forwards`;
+            document.body.appendChild(smoke);
+            setTimeout(() => smoke.remove(), 4000);
+        }
+
+        // Create big smoke cloud
+        function createSmokeCloud(x, y) {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createSmoke(x + (Math.random() - 0.5) * 100, y + Math.random() * 20, 40 + Math.random() * 30);
+                }, i * 30);
+            }
+        }
+
+        // Create spark particle
+        function createSpark(x, y) {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            spark.style.left = x + 'px';
+            spark.style.top = y + 'px';
+            const colors = ['#ff4500', '#ff6b00', '#ffa500', '#ffcc00', '#fff'];
+            spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+            spark.style.boxShadow = `0 0 6px ${spark.style.background}`;
+
+            // Random direction for spark
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 30 + Math.random() * 50;
+            spark.style.setProperty('--spark-x', Math.cos(angle) * distance + 'px');
+            spark.style.setProperty('--spark-y', Math.sin(angle) * distance + 'px');
+            spark.style.animation = `sparkFly ${0.3 + Math.random() * 0.4}s ease-out forwards`;
+
+            document.body.appendChild(spark);
+            setTimeout(() => spark.remove(), 800);
+        }
+
+        // Launch function
+        function launchRocket() {
+            const rocketWrapper = document.getElementById('rocketWrapper');
+            if (rocketWrapper.classList.contains('launching')) return;
+
+            rocketWrapper.classList.add('launching');
+
+            // Get initial rocket position
+            const initialRect = rocketWrapper.getBoundingClientRect();
+            const rocketCenterX = initialRect.left + initialRect.width / 2;
+            const initialBottomY = initialRect.bottom;
+
+            // Screen shake effect
+            document.body.classList.add('shaking');
+            setTimeout(() => document.body.classList.remove('shaking'), 600);
+
+            // Initial screen flash effect
+            document.body.style.background = '#fff';
+            setTimeout(() => {
+                document.body.style.background = '#0a0a1a';
+            }, 80);
+
+            // Initial big smoke burst at launch position
+            createSmokeCloud(rocketCenterX, initialBottomY);
+            createSmokeCloud(rocketCenterX - 30, initialBottomY + 10);
+            createSmokeCloud(rocketCenterX + 30, initialBottomY + 10);
+
+            // Get the rocket SVG element for tracking position
+            const rocketSvg = rocketWrapper.querySelector('.rocket-svg');
+
+            // Continuous smoke that follows the rocket
+            let smokeInterval = setInterval(() => {
+                // Get current rocket position
+                const currentRect = rocketSvg.getBoundingClientRect();
+                const currentBottomY = currentRect.bottom;
+
+                // Only create smoke if rocket is still visible on screen
+                if (currentBottomY > -50) {
+                    for (let i = 0; i < 3; i++) {
+                        createSmoke(rocketCenterX, currentBottomY);
+                    }
+                }
+            }, 60);
+
+            // Sparks that follow the rocket
+            let sparkInterval = setInterval(() => {
+                const currentRect = rocketSvg.getBoundingClientRect();
+                const currentBottomY = currentRect.bottom;
+
+                if (currentBottomY > -50) {
+                    for (let i = 0; i < 4; i++) {
+                        createSpark(
+                            rocketCenterX + (Math.random() - 0.5) * 40,
+                            currentBottomY + Math.random() * 20
+                        );
+                    }
+                }
+            }, 50);
+
+            // Stop effects after rocket leaves screen
+            setTimeout(() => {
+                clearInterval(smokeInterval);
+                clearInterval(sparkInterval);
+            }, 2000);
+
+            // Fade out and redirect
+            setTimeout(() => {
+                document.body.classList.add('fade-out');
+            }, 2500);
+
+            setTimeout(() => {
+                window.location.href = '/universe';
+            }, 3500);
+        }
+
+        // Both rocket and button trigger launch
+        const rocketWrapper = document.getElementById('rocketWrapper');
+        const launchBtn = document.getElementById('launchBtn');
+
+        rocketWrapper.addEventListener('click', launchRocket);
+        launchBtn.addEventListener('click', launchRocket);
+    </script>
+</body>
+</html>

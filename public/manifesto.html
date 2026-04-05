@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bradley Phyo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(180deg, #0a1a1a 0%, #004d4d 50%, #006266 100%);
+            min-height: 100vh;
+            color: #fff;
+            image-rendering: pixelated;
+            overflow-x: hidden;
+        }
+
+        /* Starfield */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            image-rendering: pixelated;
+        }
+
+        .star.small {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 2px white;
+        }
+
+        .star.medium {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 4px white;
+        }
+
+        .star.twinkle {
+            animation: pixelTwinkle 1s steps(2) infinite;
+        }
+
+        @keyframes pixelTwinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Bioluminescent particles */
+        .bio-particle {
+            position: fixed;
+            background: rgba(85, 239, 196, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: bioGlow 3s ease-in-out infinite;
+        }
+
+        .particle1 {
+            width: 6px;
+            height: 6px;
+            top: 15%;
+            right: 18%;
+            animation-delay: 0s;
+        }
+
+        .particle2 {
+            width: 4px;
+            height: 4px;
+            top: 45%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+
+        .particle3 {
+            width: 5px;
+            height: 5px;
+            top: 70%;
+            right: 25%;
+            animation-delay: 0.5s;
+        }
+
+        .particle4 {
+            width: 3px;
+            height: 3px;
+            top: 30%;
+            left: 20%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes bioGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); box-shadow: 0 0 5px rgba(85, 239, 196, 0.5); }
+            50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px rgba(85, 239, 196, 0.8); }
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            color: #55efc4;
+            text-decoration: none;
+            border: 3px solid #55efc4;
+            background: rgba(85, 239, 196, 0.1);
+            transition: all 0.2s steps(3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(85, 239, 196, 0.3);
+            box-shadow: 0 0 15px rgba(85, 239, 196, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Page title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            color: #55efc4;
+            text-shadow:
+                4px 4px 0 #006266,
+                -2px -2px 0 #00b894;
+            margin-bottom: 10px;
+            animation: titleGlow 2s steps(4) infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 4px 4px 0 #006266, -2px -2px 0 #00b894; }
+            50% { text-shadow: 4px 4px 0 #00cec9, -2px -2px 0 #55efc4; }
+        }
+
+        .page-title .subtitle {
+            font-size: 0.6rem;
+            color: #00cec9;
+            animation: blink 1s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Content sections */
+        .content-box {
+            background: rgba(0, 40, 40, 0.85);
+            border: 4px solid #55efc4;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid #00b894;
+            pointer-events: none;
+        }
+
+        .content-box h2 {
+            font-size: 1rem;
+            color: #00b894;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #55efc4;
+        }
+
+        .content-box p {
+            font-size: 0.55rem;
+            line-height: 2.2;
+            color: #a8e6cf;
+            margin-bottom: 15px;
+        }
+
+        .content-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Green planet decoration */
+        .green-planet-icon {
+            position: fixed;
+            bottom: 10%;
+            right: 5%;
+            width: 70px;
+            height: 70px;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    #55efc4 0%,
+                    #00cec9 25%,
+                    #00b894 50%,
+                    #00a085 75%,
+                    #006266 100%
+                );
+            border-radius: 50%;
+            box-shadow:
+                inset -10px -10px 0 rgba(0,0,0,0.35),
+                inset 8px 8px 0 rgba(255,255,255,0.2),
+                0 0 0 3px #006266,
+                0 0 18px rgba(0, 206, 201, 0.35),
+                8px 8px 0 rgba(0,0,0,0.5);
+            z-index: 5;
+            animation: greenPlanetBob 3.8s steps(6) infinite;
+        }
+
+        .green-planet-icon::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(85, 239, 196, 0.6);
+            border-radius: 50%;
+            top: 18px;
+            left: 22px;
+            box-shadow:
+                18px 12px 0 8px rgba(0, 206, 201, 0.4),
+                8px 28px 0 6px rgba(85, 239, 196, 0.35),
+                -5px 35px 0 4px rgba(0, 184, 148, 0.3);
+        }
+
+        .green-planet-icon::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 8px;
+            background: rgba(0, 100, 102, 0.4);
+            top: 45px;
+            left: 20px;
+            border-radius: 50%;
+        }
+
+        @keyframes greenPlanetBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Manifesto principles */
+        .principle {
+            background: rgba(0, 184, 148, 0.1);
+            border: 2px solid #00b894;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .principle:last-child {
+            margin-bottom: 0;
+        }
+
+        .principle-number {
+            font-size: 1.2rem;
+            color: #55efc4;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(85, 239, 196, 0.5);
+        }
+
+        .principle-title {
+            font-size: 0.7rem;
+            color: #00cec9;
+            margin-bottom: 10px;
+        }
+
+        .principle-text {
+            font-size: 0.5rem;
+            color: #a8e6cf;
+            line-height: 2;
+        }
+
+        /* Quote highlight */
+        .quote-box {
+            background: rgba(85, 239, 196, 0.1);
+            border-left: 4px solid #55efc4;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .quote-box p {
+            font-size: 0.6rem;
+            color: #55efc4;
+            font-style: italic;
+            line-height: 2;
+        }
+
+        /* Pixel decorations */
+        .pixel-decoration {
+            position: fixed;
+            background: #00b894;
+            width: 8px;
+            height: 8px;
+            z-index: 2;
+            animation: pixelFloat 4s steps(8) infinite;
+        }
+
+        .pixel1 { top: 20%; left: 15%; animation-delay: 0s; }
+        .pixel2 { top: 60%; left: 8%; animation-delay: 1s; }
+        .pixel3 { top: 30%; right: 20%; animation-delay: 0.5s; background: #55efc4; }
+        .pixel4 { top: 70%; right: 12%; animation-delay: 1.5s; background: #55efc4; }
+
+        @keyframes pixelFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(10px) rotate(270deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 2px dashed #55efc4;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.5rem;
+            color: #55efc4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title h1 { font-size: 1.2rem; }
+            .content-box { padding: 15px; }
+            .content-box h2 { font-size: 0.8rem; }
+            .content-box p { font-size: 0.5rem; }
+            .green-planet-icon { width: 55px; height: 55px; bottom: 5%; right: 3%; }
+            .back-btn { font-size: 0.5rem; padding: 8px 12px; }
+            .principle-number { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="stars" id="starfield"></div>
+
+    <!-- Bioluminescent particles -->
+    <div class="bio-particle particle1"></div>
+    <div class="bio-particle particle2"></div>
+    <div class="bio-particle particle3"></div>
+    <div class="bio-particle particle4"></div>
+
+    <!-- Pixel decorations -->
+    <div class="pixel-decoration pixel1"></div>
+    <div class="pixel-decoration pixel2"></div>
+    <div class="pixel-decoration pixel3"></div>
+    <div class="pixel-decoration pixel4"></div>
+
+    <!-- Green planet decoration -->
+    <div class="green-planet-icon"></div>
+
+    <!-- Back button -->
+    <a href="/universe" class="back-btn">&#9664;</a>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>THE SIGNAL</h1>
+            <p class="subtitle">// CORE DIRECTIVES //</p>
+        </div>
+
+        <!-- Lore intro -->
+        <div class="content-box">
+            <h2>// INCOMING TRANSMISSION</h2>
+            <p style="color: #00b894; font-style: italic;">
+                "On this bioluminescent world, life itself broadcasts a message. These are the frequencies I live by."
+            </p>
+            <p style="font-size: 0.5rem; color: #55efc4; margin-top: 15px;">
+                COORDINATES: THE SIGNAL | STATUS: BROADCASTING | FREQUENCY: ALWAYS ON
+            </p>
+        </div>
+
+        <div class="content-box">
+            <h2>// CORE BELIEFS</h2>
+
+            <div class="quote-box">
+                <p>"I don't just build products. I build the future I want to live in."</p>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">01</div>
+                <div class="principle-title">BUILD OBSESSIVELY</div>
+                <p class="principle-text">
+                    The best way to predict the future is to create it. I ship fast, learn faster, and iterate relentlessly. Every line of code is a step toward something that didn't exist before.
+                </p>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">02</div>
+                <div class="principle-title">USERS FIRST, ALWAYS</div>
+                <p class="principle-text">
+                    Technology is nothing without the humans it serves. I obsess over user problems, not solutions looking for problems. The best product is one that disappears into usefulness.
+                </p>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">03</div>
+                <div class="principle-title">EMBRACE THE CHAOS</div>
+                <p class="principle-text">
+                    Startups are messy. Uncertainty is the default state. I thrive in ambiguity, make decisions with incomplete information, and course-correct along the way.
+                </p>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">04</div>
+                <div class="principle-title">SPEED IS A FEATURE</div>
+                <p class="principle-text">
+                    Done is better than perfect. Ship it, get feedback, improve. The fastest learner wins, and learning requires putting things in front of real users.
+                </p>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">05</div>
+                <div class="principle-title">STAY CURIOUS, STAY HUNGRY</div>
+                <p class="principle-text">
+                    The moment you think you know everything is the moment you start falling behind. I read voraciously, experiment constantly, and never stop questioning the status quo.
+                </p>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <h2>// SIGNAL LOG</h2>
+            <p style="color: #00b894;">
+                > Manifesto broadcast initiated...<br>
+                > Core directives transmitted...<br>
+                > Signal strength: Maximum...<br>
+                > These frequencies guide every decision I make.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>[ END TRANSMISSION ]</p>
+        </div>
+    </div>
+
+    <script>
+        // Create pixel stars
+        const starfield = document.getElementById('starfield');
+        const starCount = 150;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+
+            if (Math.random() < 0.7) {
+                star.classList.add('small');
+            } else {
+                star.classList.add('medium');
+            }
+
+            if (Math.random() > 0.6) {
+                star.classList.add('twinkle');
+                star.style.animationDelay = Math.random() * 2 + 's';
+            }
+
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+
+            // Some colored stars - teal/green theme
+            const colorRand = Math.random();
+            if (colorRand > 0.95) {
+                star.style.background = '#55efc4';
+                star.style.boxShadow = '0 0 4px #55efc4';
+            } else if (colorRand > 0.9) {
+                star.style.background = '#00cec9';
+                star.style.boxShadow = '0 0 4px #00cec9';
+            }
+
+            starfield.appendChild(star);
+        }
+    </script>
+</body>
+</html>
