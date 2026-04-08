@@ -98,6 +98,38 @@
             100% { transform: translateX(0); }
         }
 
+        /* Resume button */
+        .resume-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: #27ae60;
+            border: 2px solid #27ae60;
+            padding: 8px 14px;
+            text-decoration: none;
+            background: rgba(39, 174, 96, 0.1);
+            transition: all 0.2s steps(3);
+            white-space: nowrap;
+        }
+
+        .resume-btn:hover {
+            background: rgba(39, 174, 96, 0.3);
+            box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
+            transform: scale(1.05);
+            color: #2ecc71;
+        }
+
+        @media (max-width: 600px) {
+            .resume-btn {
+                top: 10px;
+                right: 10px;
+                font-size: 0.45rem;
+                padding: 6px 10px;
+            }
+        }
+
         /* Back button */
         .back-btn {
             position: fixed;
@@ -374,19 +406,23 @@
 
 
         <div class="content-box" style="position: relative;">
-            <a href="/resume.pdf" target="_blank" style="position: absolute; top: 15px; right: 15px; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; color: #27ae60; border: 2px solid #27ae60; padding: 8px 14px; text-decoration: none; background: rgba(39, 174, 96, 0.1); transition: all 0.2s steps(3);" onmouseover="this.style.background='rgba(39,174,96,0.3)';this.style.boxShadow='0 0 15px rgba(39,174,96,0.5)'" onmouseout="this.style.background='rgba(39,174,96,0.1)';this.style.boxShadow='none'">VIEW MY RESUME</a>
+            <a href="/resume.pdf" target="_blank" class="resume-btn">VIEW MY RESUME</a>
             <h2>// ORIGIN STORY</h2>
             <p>
-                I'm Bradley Phyo, a founder and full-stack engineer with an eye for design and building scalable, real-world products from idea to production. Currently CTO
-                at ServiceAgent, where I lead engineering and product from zero to one.
+                I’m a founder and full-stack engineer with a strong eye for design and a passion for architecting scalable, real-world products from idea to production. 
+                I currently serve as CTO at ServiceAgent, where I lead both engineering and product development from zero to one for clients across a wide range of industries.
             </p>
             <p>
-                Before I launched into the unknown, I was grounded here - learning to code,
-                breaking things, fixing them, and building something from nothing.
+                Before I started building, I moved to the United States from Myanmar at fourteen. This shaped how I approach both life and work. It taught me to adapt quickly, embrace failure, stay curious, and most importantly, learn to enjoy the chaos. 
+                These are principles I rely on everyday both in my startup and in how I show up personally.
             </p>
             <p>
-                I believe great products come from obsessing over user problems, moving fast,
-                and never settling for "good enough."
+                My work sits at the intersection of product, engineering, AI, and design, with a deep focus on putting the client and end user first. 
+                I care about building tools that are not only technically strong, but also meaningful products that genuinely make a difference.
+            </p>
+            <p>
+                I see life and product-building the same way: a continuous cycle of experimentation, failure, and growth. Whether I’m on a call with a client or deep in building, 
+                I aim to show up as the best version of myself: focused, adaptable, and always learning.
             </p>
         </div>
 
@@ -396,28 +432,19 @@
                 <div class="skill-box">
                     <h3>CURRENT STATUS</h3>
                     <ul>
-                        <li>Role: CTO</li>
-                        <li>Sector: Startups</li>
+                        <li>Role: Co-founder & CTO</li>
+                        <li>Company: ServiceAgent</li>
                         <li>Focus: Product & Growth</li>
-                        <li>Mode: Build</li>
-                    </ul>
-                </div>
-                <div class="skill-box">
-                    <h3>MISSION STATS</h3>
-                    <ul>
-                        <li>Products Shipped: Many</li>
-                        <li>Teams Led: Multiple</li>
-                        <li>Coffee Consumed: Infinite</li>
-                        <li>Bugs Squashed: Countless</li>
+                        <li>Mode: Build & Iterate</li>
                     </ul>
                 </div>
                 <div class="skill-box">
                     <h3>OFF-DUTY</h3>
                     <ul>
-                        <li>Building side projects</li>
-                        <li>Exploring new tech</li>
-                        <li>Reading & learning</li>
-                        <li>Plotting the next move</li>
+                        <li>Building Side Projects</li>
+                        <li>Producing Music </li>
+                        <li>Mastering Modern and Classic Mixology</li>
+                        <li>Waiting for Dune: Part Three</li>
                     </ul>
                 </div>
             </div>
