@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bradley Phyo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
@@ -305,9 +305,11 @@
         }
 
         .skill-box h3 {
-            font-size: 1.2rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
             color: #5dade2;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
         .skill-box ul {
@@ -315,9 +317,13 @@
         }
 
         .skill-box li {
-            font-size: 1rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            line-height: 2;
             color: #b0c4de;
-            padding: 5px 0;
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
             border-bottom: 1px dotted rgba(93, 173, 226, 0.3);
         }
 
@@ -328,7 +334,8 @@
         .skill-box li::before {
             content: '>';
             color: #27ae60;
-            margin-right: 8px;
+            position: absolute;
+            left: 0;
         }
 
         /* Pixel decorations */
@@ -373,8 +380,10 @@
             .content-box { padding: 15px; }
             .content-box h2 { font-size: 1.2rem; }
             .content-box p { font-size: 0.95rem; }
-            .earth-icon { width: 60px; height: 60px; bottom: 5%; right: 3%; }
-            .back-btn { font-size: 0.5rem; padding: 8px 12px; }
+            .earth-icon { width: 60px; height: 60px; bottom: 5%; right: 3%; overflow: hidden; }
+            .earth-icon::before { width: 15px; height: 11px; top: 18px; left: 15px; box-shadow: 18px 9px 0 7px #27ae60, 9px 21px 0 5px #2ecc71, -5px 13px 0 3px #27ae60; }
+            .earth-icon::after { width: 18px; height: 7px; top: 9px; left: 21px; box-shadow: -15px 15px 0 5px rgba(255,255,255,0.4), 11px 24px 0 6px rgba(255,255,255,0.35); }
+            .back-btn { width: 40px; height: 40px; top: 15px; left: 15px; font-size: 1.1rem; border-width: 2px; }
         }
     </style>
 </head>
@@ -408,20 +417,20 @@
         <div class="content-box" style="position: relative;">
             <a href="/resume.pdf" target="_blank" class="resume-btn">VIEW MY RESUME</a>
             <h2>// ORIGIN STORY</h2>
-            <p>
-                I’m a founder and full-stack engineer with a strong eye for design and a passion for architecting scalable, real-world products from idea to production. 
+            <p style="font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.8; margin-bottom: 25px; letter-spacing: 0.5px;">
+                I’m a founder and full-stack engineer with a strong eye for design and a passion for architecting scalable, real-world processes from idea to production.
                 I currently serve as CTO at ServiceAgent, where I lead both engineering and product development from zero to one for clients across a wide range of industries.
             </p>
-            <p>
-                Before I started building, I moved to the United States from Myanmar at fourteen. This shaped how I approach both life and work. It taught me to adapt quickly, embrace failure, stay curious, and most importantly, learn to enjoy the chaos. 
+            <p style="font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.8; margin-bottom: 25px; letter-spacing: 0.5px;">
+                Before I started building, I moved to the United States from Myanmar at fourteen. This shaped how I approach both life and work. It taught me to adapt quickly, embrace failure, stay curious, and most importantly, learn to enjoy the chaos.
                 These are principles I rely on everyday both in my startup and in how I show up personally.
             </p>
-            <p>
-                My work sits at the intersection of product, engineering, AI, and design, with a deep focus on putting the client and end user first. 
+            <p style="font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.8; margin-bottom: 25px; letter-spacing: 0.5px;">
+                My work sits at the intersection of product, engineering, AI, and design, with a deep focus on putting the client and end user first.
                 I care about building tools that are not only technically strong, but also meaningful products that genuinely make a difference.
             </p>
-            <p>
-                I see life and product-building the same way: a continuous cycle of experimentation, failure, and growth. Whether I’m on a call with a client or deep in building, 
+            <p style="font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.8; letter-spacing: 0.5px;">
+                I see life and product-building the same way: a continuous cycle of experimentation, failure, and growth. Whether I’m on a call with a client or deep in building,
                 I aim to show up as the best version of myself: focused, adaptable, and always learning.
             </p>
         </div>
@@ -452,7 +461,7 @@
 
         <div class="content-box">
             <h2>// TRANSMISSION LOG</h2>
-            <p style="color: #27ae60;">
+            <p style="color: #27ae60; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.5;">
                 > System initialized...<br>
                 > Home base operational...<br>
                 > Ready for exploration...<br>

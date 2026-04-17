@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bradley Phyo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -370,8 +370,8 @@
 
         /* Mars-like planet - with polar cap and canyons */
         .planet2 {
-            width: 110px;
-            height: 110px;
+            width: 125px;
+            height: 125px;
             bottom: 8%;
             left: 8%;
             background:
@@ -648,48 +648,11 @@
         }
 
         /* Dwarf orange planet - volcanic surface */
-        .planet6 {
-            width: 42px;
-            height: 42px;
-            bottom: 65%;
-            left: 28%;
-            background:
-                radial-gradient(circle at 30% 30%,
-                    #ffeaa7 0%,
-                    #fab1a0 25%,
-                    #e17055 50%,
-                    #d35400 75%,
-                    #a04000 100%
-                );
-            border-radius: 50%;
-            box-shadow:
-                inset -6px -6px 0 rgba(0,0,0,0.35),
-                inset 5px 5px 0 rgba(255,255,255,0.25),
-                0 0 0 2px #a04000,
-                0 0 10px rgba(211, 84, 0, 0.25),
-                5px 5px 0 rgba(0,0,0,0.5);
-            animation: planetBob 3s steps(6) infinite reverse;
-        }
-
-        .planet6::before {
-            content: '';
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #ff6b6b;
-            border-radius: 50%;
-            top: 15px;
-            left: 12px;
-            box-shadow:
-                10px 5px 0 3px #e74c3c,
-                4px 12px 0 2px #ff7675,
-                15px 10px 0 2px #d63031;
-        }
 
         /* Green/Teal alien planet - bioluminescent */
         .planet7 {
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             top: 35%;
             left: 7%;
             background:
@@ -974,60 +937,6 @@
         }
 
         /* Cyan/Turquoise ringed planet - left of button */
-        .planet10 {
-            width: 65px;
-            height: 65px;
-            bottom: 30%;
-            left: 12%;
-            background:
-                radial-gradient(circle at 30% 30%,
-                    #a8e6cf 0%,
-                    #56ab91 25%,
-                    #36a08a 50%,
-                    #248f7d 75%,
-                    #1a7a6e 100%
-                );
-            border-radius: 50%;
-            box-shadow:
-                inset -8px -8px 0 rgba(0,0,0,0.35),
-                inset 6px 6px 0 rgba(255,255,255,0.2),
-                0 0 0 3px #1a7a6e,
-                0 0 15px rgba(86, 171, 145, 0.3),
-                6px 6px 0 rgba(0,0,0,0.5);
-            animation: planetBob 3.2s steps(6) infinite;
-        }
-
-        .planet10::before {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(168, 230, 207, 0.5);
-            border-radius: 50%;
-            top: 15px;
-            left: 18px;
-            box-shadow:
-                15px 10px 0 6px rgba(86, 171, 145, 0.4),
-                8px 25px 0 4px rgba(168, 230, 207, 0.35),
-                25px 20px 0 3px rgba(54, 160, 138, 0.3);
-        }
-
-        .planet10::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(72deg);
-            width: 100px;
-            height: 100px;
-            border: 5px solid transparent;
-            border-top: 5px solid rgba(168, 230, 207, 0.6);
-            border-bottom: 5px solid rgba(168, 230, 207, 0.6);
-            border-radius: 50%;
-            box-shadow:
-                0 -3px 0 0 rgba(86, 171, 145, 0.4),
-                0 3px 0 0 rgba(86, 171, 145, 0.4);
-        }
 
         /* Nebula/Space dust */
         .nebula {
@@ -1421,7 +1330,6 @@
                 opacity: 0;
             }
         }
-
         /* Black Hole with accretion disk */
         .black-hole {
             position: fixed;
@@ -2195,11 +2103,11 @@
         @media (max-width: 768px) {
             .intro-hint p { font-size: 1.2rem; }
             .intro-hint .hint-sub { font-size: 0.5rem; }
-            .back-btn { font-size: 0.5rem; padding: 8px 12px; }
-            .planet1, .planet2, .planet3, .planet5, .planet6, .planet7, .planet9, .planet10, .moon2, .moon3, .asteroid, .asteroid2, .asteroid3 { transform: scale(0.6); }
+            .back-btn { width: 40px; height: 40px; top: 15px; left: 15px; font-size: 1.1rem; border-width: 2px; }
+            .planet1, .planet2, .planet3, .planet5, .planet7, .planet9, .moon2, .moon3, .asteroid, .asteroid2, .asteroid3 { transform: scale(0.6); }
             .planet8-system { transform: scale(0.6); }
             /* Keep rings visible on mobile, just scale them with the planet */
-            .planet3::after, .planet8::after, .planet10::after { transform: translate(-50%, -50%) rotateX(70deg) scale(0.8); }
+            .planet3::after, .planet8::after { transform: translate(-50%, -50%) rotateX(70deg) scale(0.8); }
             .ufo, .iss, .satellite3, .probe, .black-hole, .galaxy, .galaxy2, .galaxy3, .debris1, .debris2, .debris3 { display: none; }
             .transmission-box {
                 font-size: 7px !important;
@@ -2261,14 +2169,12 @@
     <div class="planet planet2"></div>
     <div class="planet planet3"></div>
     <div class="planet planet5"></div>
-    <div class="planet planet6"></div>
     <div class="planet planet7"></div>
     <div class="planet8-system">
         <div class="orbiting-moon"></div>
         <div class="planet planet8"></div>
     </div>
     <div class="planet planet9"></div>
-    <div class="planet planet10"></div>
     <div class="moon3"></div>
     <div class="asteroid"></div>
 

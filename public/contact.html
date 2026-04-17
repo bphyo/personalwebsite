@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bradley Phyo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -256,7 +256,14 @@
         }
 
         .contact-card a {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 220px;
+            max-width: 100%;
+            height: 50px;
+            margin: 0 auto;
             font-size: 0.5rem;
             color: #ffba8c;
             text-decoration: none;
@@ -377,7 +384,9 @@
             .content-box h2 { font-size: 0.8rem; }
             .content-box p { font-size: 0.5rem; }
             .jupiter-icon { width: 80px; height: 80px; bottom: 5%; right: 3%; }
-            .back-btn { font-size: 0.5rem; padding: 8px 12px; }
+            .back-btn { width: 40px; height: 40px; top: 15px; left: 15px; font-size: 1.1rem; border-width: 2px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-card a { width: 100% !important; height: auto !important; padding: 12px; word-break: normal; padding-top: 12px !important; }
         }
     </style>
 </head>
@@ -399,43 +408,25 @@
 
     <div class="container">
         <div class="page-title">
-            <h1>JUPITER GATEWAY</h1>
-            <p class="subtitle">// COMMUNICATIONS HUB //</p>
+            <h1>CONTACT</h1>
+            <p class="subtitle">// COMMUNICATIONS GATEWAY //</p>
         </div>
 
-        <!-- Lore intro -->
-        <div class="content-box">
-            <h2>// INCOMING TRANSMISSION</h2>
-            <p style="color: #ee7b30; font-style: italic;">
-                "The largest planet in the system serves as our relay station. All signals pass through here."
-            </p>
-            <p style="font-size: 0.5rem; color: #ff9f43; margin-top: 15px;">
-                COORDINATES: JUPITER GATEWAY | STATUS: CHANNEL OPEN | SIGNAL: BROADCASTING
-            </p>
-        </div>
 
         <div class="content-box">
             <h2>// OPEN CHANNELS</h2>
             <div class="contact-grid">
                 <div class="contact-card">
-                    <h3>EMAIL RELAY</h3>
-                    <a href="mailto:your.email@example.com">your.email@example.com</a>
-                    <p>Primary communication channel</p>
+                    <h3>EMAIL</h3>
+                    <a href="mailto:bradley.apsp@gmail.com">bradley.apsp@gmail.com</a>
                 </div>
                 <div class="contact-card">
-                    <h3>LINKEDIN BEACON</h3>
-                    <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a>
-                    <p>Professional network signal</p>
+                    <h3>LINKEDIN</h3>
+                    <a href="https://www.linkedin.com/in/bradleyphyo" target="_blank" style="padding-top: 15px;">linkedin.com/in/bradleyphyo</a>
                 </div>
                 <div class="contact-card">
-                    <h3>GITHUB TERMINAL</h3>
-                    <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
-                    <p>Code repository access</p>
-                </div>
-                <div class="contact-card">
-                    <h3>TWITTER FREQUENCY</h3>
-                    <a href="https://twitter.com/yourhandle" target="_blank">@yourhandle</a>
-                    <p>Public broadcast channel</p>
+                    <h3>GITHUB</h3>
+                    <a href="https://github.com/bphyo" target="_blank">github.com/bphyo</a>
                 </div>
             </div>
         </div>

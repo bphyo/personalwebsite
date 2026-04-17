@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bradley Phyo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -181,6 +181,7 @@
         }
 
         .content-box h2 {
+            font-family: 'Press Start 2P', cursive;
             font-size: 1rem;
             color: #e84393;
             margin-bottom: 15px;
@@ -189,7 +190,7 @@
         }
 
         .content-box p {
-            font-size: 0.55rem;
+            font-size: 1.1rem;
             line-height: 2;
             color: #f8b4d9;
             margin-bottom: 15px;
@@ -320,28 +321,36 @@
         }
 
         .education-degree {
-            font-size: 0.7rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
+            line-height: 1.6;
             color: #fd79a8;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .education-school {
-            font-size: 0.55rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            line-height: 1.6;
             color: #e84393;
         }
 
         .education-date {
-            font-size: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
             color: #c44569;
             background: rgba(253, 121, 168, 0.2);
-            padding: 5px 10px;
+            padding: 6px 10px;
             border: 1px solid #e84393;
         }
 
         .education-description {
-            font-size: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
             color: #f8b4d9;
-            line-height: 2;
+            line-height: 2.5;
+            list-style: none;
+            letter-spacing: 0.5px;
         }
 
         .education-description li {
@@ -378,14 +387,19 @@
         }
 
         .achievement-title {
-            font-size: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            line-height: 1.5;
             color: #fd79a8;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .achievement-desc {
-            font-size: 0.4rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            line-height: 1.8;
             color: #f8b4d9;
+            letter-spacing: 0.5px;
         }
 
         /* Pixel decorations */
@@ -419,7 +433,8 @@
         }
 
         .footer p {
-            font-size: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
             color: #fd79a8;
         }
 
@@ -427,13 +442,31 @@
         @media (max-width: 768px) {
             .page-title h1 { font-size: 1.2rem; }
             .content-box { padding: 15px; }
-            .content-box h2 { font-size: 0.8rem; }
-            .content-box p { font-size: 0.5rem; }
+            .content-box h2 { font-size: 1.2rem; }
+            .content-box p { font-size: 0.95rem; }
             .pink-planet-icon { width: 50px; height: 50px; bottom: 5%; right: 3%; }
             .pink-planet-icon::after { width: 75px; height: 75px; border-width: 3px; }
             .orbiting-moon-edu { display: none; }
-            .back-btn { font-size: 0.5rem; padding: 8px 12px; }
+            .back-btn { width: 40px; height: 40px; top: 15px; left: 15px; font-size: 1.1rem; border-width: 2px; }
             .education-header { flex-direction: column; }
+            .education-card img[alt="UC Davis"] { position: static !important; display: block; margin: 20px auto 0; width: 100px !important; height: 100px !important; }
+            .education-degree { font-size: 1rem; }
+            .education-school { font-size: 0.85rem; }
+            .education-date { font-size: 0.75rem; margin-right: 0 !important; }
+            .education-description { font-size: 0.85rem; }
+            .achievements-grid { grid-template-columns: 1fr; }
+            .achievement-title { font-size: 0.95rem; }
+            .achievement-desc { font-size: 0.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 { font-size: 0.9rem; }
+            .content-box h2 { font-size: 0.8rem; }
+            .education-card img[alt="UC Davis"] { width: 85px !important; height: 85px !important; }
+            .education-degree { font-size: 0.6rem; }
+            .education-school { font-size: 0.5rem; }
+            .education-description { font-size: 0.5rem; }
+            .education-description li { padding-right: 0; }
         }
     </style>
 </head>
@@ -460,86 +493,55 @@
 
     <div class="container">
         <div class="page-title">
-            <h1>NEBULA ARCHIVES</h1>
+            <h1>EDUCATION</h1>
             <p class="subtitle">// TRAINING RECORDS //</p>
         </div>
 
-        <!-- Lore intro -->
-        <div class="content-box">
-            <h2>// INCOMING TRANSMISSION</h2>
-            <p style="color: #e84393; font-style: italic;">
-                "In the pink nebula, knowledge crystallizes into wisdom. Every lesson learned becomes a star in the constellation of growth."
-            </p>
-            <p style="font-size: 0.5rem; color: #fd79a8; margin-top: 15px;">
-                COORDINATES: NEBULA ARCHIVES | STATUS: KNOWLEDGE ACQUIRED | ARCHIVES: ACCESSIBLE
-            </p>
-        </div>
 
         <div class="content-box">
-            <h2>// TRAINING RECORDS</h2>
+            <h2>// DEGREES</h2>
 
-            <div class="education-card">
+            <div class="education-card" style="position: relative;">
                 <div class="education-header">
                     <div>
-                        <div class="education-degree">MASTER OF SCIENCE</div>
-                        <div class="education-school">University Name</div>
+                        <div class="education-degree">Bachelor of Science in Statistics</div>
+                        <div class="education-school">University of California, Davis</div>
                     </div>
-                    <div class="education-date">2020 - 2022</div>
+                    <div class="education-date" style="margin-right: 18px;">2020 - 2024</div>
                 </div>
                 <ul class="education-description">
-                    <li>Specialized in Computer Science / Engineering</li>
-                    <li>Thesis: "Research Topic Title"</li>
-                    <li>GPA: X.XX / 4.0</li>
-                    <li>Relevant coursework in advanced topics</li>
+                    <li>Major in Statistics (Data Science Track)</li>
+                    <li>Minors in Technology Management and Computer Science</li>
+                    <li>Dean's Honors List (2022-2024)</li>
                 </ul>
-            </div>
-
-            <div class="education-card">
-                <div class="education-header">
-                    <div>
-                        <div class="education-degree">BACHELOR OF SCIENCE</div>
-                        <div class="education-school">University Name</div>
-                    </div>
-                    <div class="education-date">2016 - 2020</div>
-                </div>
-                <ul class="education-description">
-                    <li>Major in Computer Science / Engineering</li>
-                    <li>Minor in Business / Mathematics</li>
-                    <li>Dean's List / Honors Program</li>
-                    <li>Participated in hackathons and coding competitions</li>
-                </ul>
+                <img src="/images/logo.png" alt="UC Davis" style="position: absolute; bottom: 5px; right: 30px; width: 135px; height: 135px;">
             </div>
         </div>
 
         <div class="content-box">
-            <h2>// CERTIFICATIONS & AWARDS</h2>
+            <h2>// AWARDS & CERTIFICATIONS</h2>
             <div class="achievements-grid">
                 <div class="achievement-item">
-                    <div class="achievement-icon">*</div>
-                    <div class="achievement-title">AWS CERTIFIED</div>
-                    <div class="achievement-desc">Cloud Practitioner / Solutions Architect</div>
+                    <img src="/images/deloitte.png" alt="Deloitte" style="width: 90px; height: 90px; object-fit: contain; margin-bottom: 10px;">
+                    <div class="achievement-title">Deloitte</div>
+                    <div class="achievement-desc">DLAMP Scholar</div>
                 </div>
                 <div class="achievement-item">
-                    <div class="achievement-icon">*</div>
-                    <div class="achievement-title">HACKATHON WINNER</div>
-                    <div class="achievement-desc">1st Place - Event Name 2021</div>
+                    <img src="/images/aws.webp" alt="AWS" style="width: 90px; height: 90px; object-fit: contain; margin-bottom: 10px;">
+                    <div class="achievement-title">AWS</div>
+                    <div class="achievement-desc">Certified Solutions Architect - Associate</div>
                 </div>
                 <div class="achievement-item">
-                    <div class="achievement-icon">*</div>
-                    <div class="achievement-title">SCHOLARSHIP</div>
-                    <div class="achievement-desc">Merit-based Academic Award</div>
-                </div>
-                <div class="achievement-item">
-                    <div class="achievement-icon">*</div>
-                    <div class="achievement-title">LEADERSHIP</div>
-                    <div class="achievement-desc">Tech Club President / Officer</div>
+                    <img src="/images/pspo.png" alt="PSPO" style="width: 90px; height: 90px; object-fit: contain; margin-bottom: 10px;">
+                    <div class="achievement-title">PSPO</div>
+                    <div class="achievement-desc">Professional Scrum Product Owner I</div>
                 </div>
             </div>
         </div>
 
         <div class="content-box">
             <h2>// ARCHIVE LOG</h2>
-            <p style="color: #e84393;">
+            <p style="color: #e84393; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.5;">
                 > Accessing knowledge archives...<br>
                 > Training records retrieved...<br>
                 > Certifications verified...<br>
