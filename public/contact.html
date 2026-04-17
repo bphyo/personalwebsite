@@ -433,7 +433,7 @@
 
         <div class="content-box">
             <h2>// SEND TRANSMISSION</h2>
-            <form class="contact-form" action="#" method="POST">
+            <form id="contactForm" class="contact-form" action="https://formspree.io/f/xnjldbpb" method="POST">
                 <div class="form-group">
                     <label>> SENDER IDENTIFICATION:</label>
                     <input type="text" name="name" placeholder="Your name..." required>
@@ -448,7 +448,44 @@
                 </div>
                 <button type="submit" class="submit-btn">>> TRANSMIT MESSAGE <<</button>
             </form>
+            <div id="formSuccess" style="display: none; text-align: center; padding: 30px; border: 2px dashed #ee7b30; background: rgba(249, 202, 36, 0.1); margin-top: 20px;">
+                <p style="font-family: 'Press Start 2P', cursive; font-size: 0.9rem; color: #ee7b30; margin-bottom: 15px;">&gt;&gt; MESSAGE TRANSMITTED &lt;&lt;</p>
+                <p style="font-family: 'Press Start 2P', cursive; font-size: 0.5rem; color: #ffba8c; line-height: 2;">> Signal received...<br>> Response incoming within 24 Earth hours.</p>
+            </div>
+            <div id="formError" style="display: none; text-align: center; padding: 20px; border: 2px dashed #ff4444; background: rgba(255, 68, 68, 0.1); margin-top: 20px;">
+                <p style="font-family: 'Press Start 2P', cursive; font-size: 0.6rem; color: #ff4444;">&gt; TRANSMISSION FAILED. PLEASE TRY AGAIN.</p>
+            </div>
         </div>
+
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const form = e.target;
+                const btn = form.querySelector('.submit-btn');
+                const successBox = document.getElementById('formSuccess');
+                const errorBox = document.getElementById('formError');
+                btn.disabled = true;
+                btn.textContent = '>> TRANSMITTING... <<';
+                errorBox.style.display = 'none';
+                try {
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (res.ok) {
+                        form.style.display = 'none';
+                        successBox.style.display = 'block';
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                } catch (err) {
+                    errorBox.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = '>> TRANSMIT MESSAGE <<';
+                }
+            });
+        </script>
 
         <div class="content-box">
             <h2>// TRANSMISSION LOG</h2>

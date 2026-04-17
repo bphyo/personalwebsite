@@ -148,6 +148,7 @@
         }
 
         .content-box h2 {
+            font-family: 'Press Start 2P', cursive;
             font-size: 1rem;
             color: #c0392b;
             margin-bottom: 15px;
@@ -156,7 +157,7 @@
         }
 
         .content-box p {
-            font-size: 0.55rem;
+            font-size: 1.1rem;
             line-height: 2;
             color: #e8a39e;
             margin-bottom: 15px;
@@ -222,14 +223,46 @@
             background: rgba(231, 76, 60, 0.1);
             border: 2px solid #c0392b;
             padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .skill-category:last-child {
+            margin-bottom: 0;
         }
 
         .skill-category h3 {
-            font-size: 0.7rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
+            line-height: 1.5;
             color: #e74c3c;
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px dashed #c0392b;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 8px 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            line-height: 1.4;
+            color: #e8a39e;
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid #c0392b;
+            transition: all 0.2s steps(3);
+        }
+
+        .skill-tag:hover {
+            background: rgba(231, 76, 60, 0.35);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
         }
 
         .skill-item {
@@ -237,7 +270,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
-            font-size: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
             color: #e8a39e;
         }
 
@@ -304,7 +340,8 @@
         }
 
         .footer p {
-            font-size: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
             color: #e74c3c;
         }
 
@@ -312,10 +349,19 @@
         @media (max-width: 768px) {
             .page-title h1 { font-size: 1.2rem; }
             .content-box { padding: 15px; }
-            .content-box h2 { font-size: 0.8rem; }
-            .content-box p { font-size: 0.5rem; }
+            .content-box h2 { font-size: 1.2rem; }
+            .content-box p { font-size: 0.95rem; }
             .mars-icon { width: 70px; height: 70px; bottom: 5%; right: 3%; }
             .back-btn { width: 40px; height: 40px; top: 15px; left: 15px; font-size: 1.1rem; border-width: 2px; }
+            .skill-category { padding: 15px; }
+            .skill-category h3 { font-size: 0.65rem; }
+            .skill-tag { font-size: 0.45rem; padding: 6px 10px; }
+            .skill-tags { gap: 6px; }
+        }
+
+        @media (max-width: 480px) {
+            .skill-category h3 { font-size: 0.55rem; }
+            .skill-tag { font-size: 0.4rem; padding: 5px 8px; }
         }
     </style>
 </head>
@@ -337,165 +383,68 @@
 
     <div class="container">
         <div class="page-title">
-            <h1>MARS COLONY</h1>
+            <h1>SKILLS</h1>
             <p class="subtitle">// TRAINING GROUNDS //</p>
         </div>
 
-        <!-- Lore intro -->
-        <div class="content-box">
-            <h2>// INCOMING TRANSMISSION</h2>
-            <p style="color: #c0392b; font-style: italic;">
-                "The red planet forges warriors. Every tool here has been tested in battle."
-            </p>
-            <p style="font-size: 0.5rem; color: #e74c3c; margin-top: 15px;">
-                COORDINATES: MARS COLONY | STATUS: TRAINING ACTIVE | CLEARANCE: GRANTED
-            </p>
-        </div>
 
         <div class="content-box">
             <h2>// ARSENAL INVENTORY</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>FRONTEND WEAPONS</h3>
-                    <div class="skill-item">
-                        <span class="skill-name">JavaScript/TypeScript</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">React/Next.js</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">HTML/CSS</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                        </div>
-                    </div>
+            <div class="skill-category">
+                <h3>LANGUAGES</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">R</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
                 </div>
+            </div>
 
-                <div class="skill-category">
-                    <h3>BACKEND ARSENAL</h3>
-                    <div class="skill-item">
-                        <span class="skill-name">Node.js</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Python</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">SQL/NoSQL</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
+            <div class="skill-category">
+                <h3>FRAMEWORKS</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Express.js</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Tensorflow</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Next.js</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">SciKit-Learn</span>
+                    <span class="skill-tag">Keras</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                    <span class="skill-tag">Flask</span>
                 </div>
+            </div>
 
-                <div class="skill-category">
-                    <h3>TOOLS & TECH</h3>
-                    <div class="skill-item">
-                        <span class="skill-name">Git/GitHub</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Docker/AWS</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">CI/CD</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>LEADERSHIP SKILLS</h3>
-                    <div class="skill-item">
-                        <span class="skill-name">Team Building</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Product Strategy</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Agile/Scrum</span>
-                        <div class="skill-level">
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                            <div class="skill-bar filled"></div>
-                        </div>
-                    </div>
+            <div class="skill-category">
+                <h3>SOFTWARE</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Azure</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Vite</span>
+                    <span class="skill-tag">Jira</span>
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">MATLAB</span>
+                    <span class="skill-tag">Tableau</span>
+                    <span class="skill-tag">Airflow</span>
+                    <span class="skill-tag">Microsoft Office</span>
+                    <span class="skill-tag">Supabase</span>
+                    <span class="skill-tag">Kubernetes</span>
+                    <span class="skill-tag">R Studio</span>
+                    <span class="skill-tag">Postman</span>
                 </div>
             </div>
         </div>
 
         <div class="content-box">
             <h2>// TRANSMISSION LOG</h2>
-            <p style="color: #c0392b;">
+            <p style="color: #c0392b; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; line-height: 2.5;">
                 > Arsenal inventory loaded...<br>
                 > All systems combat-ready...<br>
                 > Training protocols active...<br>
